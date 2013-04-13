@@ -51,8 +51,6 @@ class AddForm(forms.ModelForm):
         
         # Form url
         r_url = 'http://www.youtube.com/v/'+qs['v'][0]+'/'
-        print r_url
-        print self.ip
         
         # Check if url already exists for this IP
         if self.exists(r_url):
