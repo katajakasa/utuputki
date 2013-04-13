@@ -1,0 +1,74 @@
+{% extends "manager/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+{{ block.super }}
+{% endblock %}
+
+{% block head %}
+{{ block.super }}
+{% endblock %}
+
+{% block jquery %}
+{{ block.super }}
+        $('form.uniForm').uniform();
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+    <h2>Lataus</h2>
+{% crispy addform addform.helper %}
+    
+    <h2>Playlist</h2>
+{% if playlist %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Kuvaus</th>
+                <th>Linkki</th>
+                <th>IP</th>
+            </tr>
+        </thead>
+        <tbody>
+{% for item in playlist %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.description }}</td>
+                <td><a href="{{ item.youtube_url }}">{{ item.youtube_url }}</a></td>
+                <td>{{ item.ip }}</td>
+            </tr>
+{% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Playlist on tyhjä!</p>
+{% endif %}
+
+    <h2>Wanhat</h2>
+{% if oldies %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Kuvaus</th>
+                <th>Linkki</th>
+                <th>IP</th>
+            </tr>
+        </thead>
+        <tbody>
+{% for item in oldies %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.description }}</td>
+                <td><a href="{{ item.youtube_url }}">{{ item.youtube_url }}</a></td>
+                <td>{{ item.ip }}</td>
+            </tr>
+{% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Ei wanhoja videoita!</p>
+{% endif %}
+
+{% endblock %}

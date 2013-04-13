@@ -1,0 +1,61 @@
+
+h1 {
+    font-size: 2.0em;
+    font-weight: bold;
+    padding: 10px;
+}
+
+h2 {
+    font-size: 1.5em;
+    padding: 10px;
+}
+
+table { 
+    border-collapse: collapse; 
+    margin: 10px;
+}
+
+table th { 
+    padding: 5px; 
+    border: 1px solid #aaaaaa; 
+    background-color: rgba(40,52,59,1); 
+    color: #eeeeee; 
+    text-align: left; 
+}
+
+table td { 
+    padding: 5px; 
+    border: 1px solid #aaaaaa; 
+    background-color: #eeeeee; 
+}
+
+p {
+    margin: 1.0em;
+}
+
+/* ---------- uniForm tweaks ---------- */
+
+form.uniForm {
+    margin: 1.0em;
+}
+
+form.uniForm .ctrlHolder,
+form.uniForm .error { 
+    border-bottom: 1px dotted #aaaaaa; 
+}
+
+form.uniForm .buttonHolder {
+    margin: 0;
+}
+
+form.uniForm .error {
+    margin: 0.5em;
+}
+
+form.uniForm fieldset { 
+    border: 1px solid #999999;
+}
+
+form.uniForm legend { 
+    padding: 0.3em; 
+}

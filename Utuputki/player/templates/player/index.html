@@ -1,0 +1,100 @@
+{% extends "player/base.html" %}
+
+{% block title %}
+{{ block.super }}
+{% endblock %}
+
+{% block head %}
+{{ block.super }}
+{% endblock %}
+
+{% block jquery %}
+{{ block.super }}
+        var timer = null;
+        var url = null;
+        var timer = null;
+
+        function parse_url(url) {
+            var code = url;
+            if(code[code.length-1] == '/') {
+                code = code.substring(0, code.length-1);
+            }
+            code = code.substring(code.lastIndexOf('/')+1);
+            return code;
+        }
+        
+        function clear_timer() {
+            if(timer != null) {
+                window.clearTimeout(timer);
+            }
+            timer = null;
+        }
+
+        function wait() {
+            clear_timer();
+            timer = setTimeout($.proxy(next, this), 1000);
+        }
+
+        function fetch_success(data) {
+            if(data['state'] == 0) {
+                console.log("No further videos, waiting ...");
+                wait();
+            } else {
+                url = data['url'];
+                console.log("Got video "+ url);
+                $('body').tubeplayer('play', parse_url(url));
+            }
+        }
+        
+        function fetch_failure() {
+            console.log("FETCH FAILURE!");
+            wait();
+        }
+
+        function next() {
+            console.log("Fetching next!");
+            $.ajax({ 
+                url: '{% url 'player:next' %}', 
+                dataType: 'json', 
+                success: $.proxy(fetch_success, this),
+                timeout: 5000,
+                type: 'GET',
+                error: $.proxy(fetch_failure, this)
+            });
+        }
+
+        function init() {
+            $('body').tubeplayer({
+                width: 1920,
+                height: 1076,
+                allowFullScreen: "false",
+                initialVideo: "40rO-wUOQlg",
+                preferredQuality: "hd720",
+                iframed: true,
+                autoplay: false,
+                onPlayerEnded: $.proxy(function() {
+                    console.log("Playback ended, loading next.");
+                    next();
+                }, this),
+                onErrorNotEmbeddable: $.proxy(function() {
+                    console.log("Error: Not embeddable!");
+                    next();
+                }, this),
+                onErrorNotFound: $.proxy(function() {
+                    console.log("Error: Not found!");
+                    next();
+                }, this),
+                onErrorInvalidParameter: $.proxy(function() {
+                    console.log("Error: Invalid parameter!");
+                    next();
+                }, this),
+            });
+            wait();
+        }
+        
+        init();
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+{% endblock %}
