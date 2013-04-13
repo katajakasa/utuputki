@@ -5,6 +5,7 @@
     <title>Utuputki{% block title %}{% endblock %}</title>
 {% block head %}{% endblock %}
 
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans" />
     <link rel="stylesheet" type="text/css" href="{% static "libs/css/reset.css" %}" media="all" />
     <link rel="stylesheet" type="text/css" href="{% static "libs/css/uni-form/uni-form.css" %}" media="all" />
     <link rel="stylesheet" type="text/css" href="{% static "libs/css/uni-form/default.uni-form.css" %}" media="all" />
@@ -18,8 +19,10 @@
     });
     </script>
 </head>
-<body>
-    <h1>Utuputki</h1>
-{% block content %}{% endblock %}
+<body> 
+<div id="content">
+    <h1>Utuputki</h1>   
+{% block content %}{% endblock %} 
+</div>
 </body>
 </html>
