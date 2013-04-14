@@ -11,7 +11,8 @@ if settings.DEBUG:
 # URLS
 urlpatterns = patterns('',
     url(r'^player/', include('Utuputki.player.urls', namespace="player")),
-    url(r'^$', include('Utuputki.manager.urls', namespace="manager")),
+    url(r'^manager/', include('Utuputki.manager.urls', namespace="manager")),
+    url(r'^$', include('Utuputki.manager.urls')),
 )
 
 # Add admin panel link if debug mode is on

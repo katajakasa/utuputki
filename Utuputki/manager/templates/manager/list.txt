@@ -1,0 +1,2 @@
+{% for item in playlist %}{{ item.id }},"{{ item.youtube_url }}","{{ item.description }}"
+{% endfor %}

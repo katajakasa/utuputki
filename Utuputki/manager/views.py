@@ -8,6 +8,15 @@ from django.template import RequestContext
 from Utuputki.manager.models import Video
 from Utuputki.manager.forms import AddForm
 
+def linklist(request):
+    response = render_to_response("manager/list.txt", {
+        'playlist': Video.objects.all().order_by('id'),
+    }, context_instance=RequestContext(request))
+    
+    response['Content-Type'] = 'text/csv'
+    response['Content-Disposition'] = 'attachment; filename="linklist.csv"'
+    return response
+
 def index(request):
     oldies = Video.objects.filter(deleted=True).order_by('-id')[:5]
     playlist = Video.objects.filter(deleted=False).order_by('id')
@@ -28,3 +37,4 @@ def index(request):
         'oldies': oldies,
         'addform': addform,
     }, context_instance=RequestContext(request))
+    

@@ -5,4 +5,5 @@ from django.conf.urls.defaults import patterns, url
 urlpatterns = patterns(
     'Utuputki.manager.views',
     url(r'^$', 'index', name="index"),
+    url(r'^linklist/', 'linklist', name="linklist"),
 )

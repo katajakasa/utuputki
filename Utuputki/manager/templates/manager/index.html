@@ -16,6 +16,11 @@
 
 {% block content %}
 {{ block.super }}
+
+    <p>
+        <a href="{% url 'manager:linklist' %}">Täydellinen linkkilista CSV-muodossa</a>
+    </p>
+
     <h2>Lataus</h2>
 {% crispy addform addform.helper %}
     
