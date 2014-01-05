@@ -25,8 +25,9 @@ def index(request):
     if request.method == "POST":
         addform = AddForm(request.POST, ip=ip)
         if addform.is_valid():
-            d = addform.save()
+            d = addform.save(commit=False)
             d.ip = ip
+            d.description = addform.tmp_desc
             d.save()
             return HttpResponseRedirect(reverse('manager:index'))
     else:

@@ -4,7 +4,10 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Fieldset, ButtonHolder
 from Utuputki.manager.models import Video
+
 import urlparse
+import httplib
+import json
 
 class AddForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -14,7 +17,6 @@ class AddForm(forms.ModelForm):
         self.helper.layout = Layout(
             Fieldset(
                 u'Lisää video playlistiin',
-                'description',
                 'youtube_url',
                 ButtonHolder (
                     Submit('submit', u'Lisää')
@@ -27,6 +29,15 @@ class AddForm(forms.ModelForm):
         if len(pitems) > 0:
             return True
         return False
+        
+    def get_video_info(self, id):
+        host = 'gdata.youtube.com'
+        headers = {'Content-Type': 'application/json',}
+        c = httplib.HTTPSConnection(host, timeout=15)
+        c.request('GET', '/feeds/api/videos/'+id+'?v=2&alt=jsonc', headers=headers)
+        res = c.getresponse()
+        message = json.loads(res.read())
+        return message
         
     def clean_youtube_url(self):
         # Make sure field has content
@@ -55,6 +66,17 @@ class AddForm(forms.ModelForm):
         # Check if url already exists for this IP
         if self.exists(r_url):
             raise forms.ValidationError(u'URL on jo playlistassa tällä käyttäjällä.')
+            
+        # Get video information; make sure it is available
+        video_info = self.get_video_info(qs['v'][0])
+        if u'status' in video_info['data']:
+            if video_info['data']['status']['value'] == 'restricted':
+                raise forms.ValidationError(u'Videon katselu youtubessa tälle videolle on rajoitettu.')
+        if video_info['data']['accessControl']['embed'] != "allowed":
+            raise forms.ValidationError(u'Videon embeddaus on estetty.')
+        
+        # Set temp description
+        self.tmp_desc = video_info['data']['title']
             
         # All done. Return valid url
         return r_url
