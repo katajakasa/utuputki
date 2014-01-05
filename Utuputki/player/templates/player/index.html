@@ -63,10 +63,19 @@
             });
         }
 
+        function on_resize() {
+            $('body').tubeplayer("size", {
+                width: $(window).width(), 
+                height: $(window).height()
+            });
+            console.log("w: "+$(window).width());
+        }
+
         function init() {
+            $(window).resize(on_resize);
             $('body').tubeplayer({
-                width: 1920,
-                height: 1076,
+                width: $(window).width(),
+                height: $(window).height(),
                 allowFullScreen: "false",
                 initialVideo: "40rO-wUOQlg",
                 preferredQuality: "hd720",
