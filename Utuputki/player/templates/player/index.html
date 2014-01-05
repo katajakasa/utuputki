@@ -13,6 +13,7 @@
         var timer = null;
         var url = null;
         var timer = null;
+        var default_video = "5Glh282lTrg";
 
         function parse_url(url) {
             var code = url;
@@ -38,6 +39,7 @@
         function fetch_success(data) {
             if(data['state'] == 0) {
                 console.log("No further videos, waiting ...");
+                $('body').tubeplayer('play', default_video);
                 wait();
             } else {
                 url = data['url'];
@@ -48,6 +50,7 @@
         
         function fetch_failure() {
             console.log("FETCH FAILURE!");
+            $('body').tubeplayer('play', default_video);
             wait();
         }
 
@@ -76,7 +79,7 @@
                 width: $(window).width(),
                 height: $(window).height(),
                 allowFullScreen: "false",
-                initialVideo: "5Glh282lTrg",
+                initialVideo: default_video,
                 preferredQuality: "hd720",
                 iframed: true,
                 autoplay: false,
