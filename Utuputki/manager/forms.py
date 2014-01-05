@@ -49,37 +49,41 @@ class AddForm(forms.ModelForm):
         # Check if we already have a valid embed url
         url = self.cleaned_data['youtube_url']
         if url.find('http://www.youtube.com/v/') == 0:
-            if self.exists(url):
-                raise forms.ValidationError(u'URL on jo playlistassa tällä käyttäjällä.')
-            else:
-                return url
-
-        # Parse querystring to find video ID
-        parsed = urlparse.urlparse(url)
-        qs = urlparse.parse_qs(parsed.query)
-        
-        # Check if the video id exists in query string
-        if 'v' not in qs:
-            raise forms.ValidationError(u'Annettu URL ei ole validi youtube-urli.')
-        
-        # Form url
-        r_url = 'http://www.youtube.com/v/'+qs['v'][0]+'/'
+            parsed = urlparse.urlparse(url)
+            mpath = parsed.path
+            if mpath[-1:] == '/':
+                mpath = mpath[:-1]
+            segs = mpath.rpartition('/')
+            video_id = segs[2]
+        else:
+            parsed = urlparse.urlparse(url)
+            qs = urlparse.parse_qs(parsed.query)
+            video_id = qs['v'][0]
+            
+            # Check if the video id exists in query string
+            if 'v' not in qs:
+                raise forms.ValidationError(u'Annettu URL ei ole validi youtube-urli.')
         
         # Check if url already exists for this IP
+        r_url = 'http://www.youtube.com/v/'+video_id+'/'
         if self.exists(r_url):
             raise forms.ValidationError(u'URL on jo playlistassa tällä käyttäjällä.')
             
         # Get video information; make sure it is available
-        video_info = self.get_video_info(qs['v'][0])
+        video_info = self.get_video_info(video_id)
         if u'data' in video_info:
             if u'status' in video_info['data']:
                 if video_info['data']['status']['value'] == 'restricted':
                     raise forms.ValidationError(u'Videon katselu youtubessa tälle videolle on rajoitettu.')
-            if video_info['data']['accessControl']['embed'] != "allowed":
-                raise forms.ValidationError(u'Videon embeddaus on estetty.')
+            if u'accessControl' in video_info['data']:    
+                if video_info['data']['accessControl']['embed'] != "allowed":
+                    raise forms.ValidationError(u'Videon embeddaus on estetty.')
             
             # Set temp description
-            self.tmp_desc = video_info['data']['title']
+            if u'title' in video_info['data']:
+                self.tmp_desc = video_info['data']['title']
+            else:
+                self.tmp_desc = u'Unavailable'
         else:
             raise forms.ValidationError(u'Videota ei ole olemassa!')
             
@@ -88,4 +92,4 @@ class AddForm(forms.ModelForm):
         
     class Meta:
         model = Video
-        fields = ('description','youtube_url',)
+        fields = ('youtube_url',)
