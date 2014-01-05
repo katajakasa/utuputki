@@ -23,7 +23,7 @@ def check_skip(request):
     
     doskip = False
     skipreqs = SkipRequest.objects.filter(event_id=video_id)
-    if len(skipreqs) > 0:
+    if len(skipreqs) > 2:
         doskip = True
     
     return JSONResponse({'error': 0, 'skip': doskip});
