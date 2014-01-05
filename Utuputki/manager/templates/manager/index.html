@@ -12,6 +12,7 @@
 {% block jquery %}
 {{ block.super }}
         $('form.uniForm').uniform();
+        $(".errorField").addClass("ui-state-error ui-corner-all");
 {% endblock %}
 
 {% block content %}
