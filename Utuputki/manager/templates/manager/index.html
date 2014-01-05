@@ -13,15 +13,32 @@
 {{ block.super }}
         $('form.uniForm').uniform();
         $(".errorField").addClass("ui-state-error ui-corner-all");
+        $("#vote_skip").button();
+        $("#vote_skip").click(function() {
+            $.ajax({ 
+                url: '{% url 'manager:reqskip' %}', 
+                dataType: 'json', 
+                timeout: 5000,
+                type: 'GET',
+            });
+        });
 {% endblock %}
 
 {% block content %}
 {{ block.super }}
 
+    <h2>Historia</h2>
     <p>
         <a href="{% url 'manager:linklist' %}">Täydellinen linkkilista CSV-muodossa</a>
     </p>
-
+    
+    <h2>Toiston hallinta</h2>
+    <p>
+        {% if current %}Tällä hetkellä toistossa "{{ current.description }}"{% else %}Ei videota toistossa.{% endif %}.
+    </p>
+    <p>
+        <span id="vote_skip">Äänestä videon skippaamista</span>
+    </p>
     <h2>Lataus</h2>
 {% crispy addform addform.helper %}
     

@@ -11,10 +11,12 @@
 {% block jquery %}
 {{ block.super }}
         var timer = null;
+        var check_timer = null;
         var url = null;
         var timer = null;
         var default_video = "5Glh282lTrg";
         var playing_now = "";
+        var current_id = -1;
 
         function parse_url(url) {
             var code = url;
@@ -30,6 +32,13 @@
                 window.clearTimeout(timer);
             }
             timer = null;
+        }
+
+        function clear_check_timer() {
+            if(check_timer != null) {
+                window.clearTimeout(check_timer);
+            }
+            check_timer = null;
         }
 
         function wait() {
@@ -50,17 +59,21 @@
             if(data['state'] == 0) {
                 console.log("No further videos, waiting ...");
                 playvid(default_video);
+                clear_check_timer();
                 wait();
             } else {
                 url = data['url'];
+                current_id = data['id']
                 console.log("Got video "+ url);
                 playvid(parse_url(url));
+                wait_skip_check();
             }
         }
         
         function fetch_failure() {
             console.log("FETCH FAILURE!");
             playvid(default_video);
+            clear_check_timer();
             wait();
         }
 
@@ -73,6 +86,37 @@
                 timeout: 5000,
                 type: 'GET',
                 error: $.proxy(fetch_failure, this)
+            });
+        }
+
+        function wait_skip_check() {
+            clear_check_timer();
+            check_timer = setTimeout($.proxy(check_skip, this), 2500);
+        }
+
+        function check_success(data) {
+            if(data['error'] == 0 && data['skip'] == 1) {
+                next();
+            } else {
+                wait_skip_check();
+            }
+        }
+        
+        function check_failure() {
+            console.log("Skip check failure");
+            wait_skip_check();
+        }
+
+        function check_skip() {
+            console.log("Checking skip requests.");
+            $.ajax({ 
+                url: '{% url 'player:checkskip' %}', 
+                dataType: 'json', 
+                success: $.proxy(check_success, this),
+                timeout: 5000,
+                type: 'GET',
+                data: {video_id: current_id},
+                error: $.proxy(check_failure, this)
             });
         }
 
