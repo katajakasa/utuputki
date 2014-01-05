@@ -40,6 +40,8 @@ class AddForm(forms.ModelForm):
         return message
         
     def clean_youtube_url(self):
+        self.tmp_desc = u''
+        
         # Make sure field has content
         if not self.cleaned_data['youtube_url']:
             return self.cleaned_data['youtube_url']
@@ -69,14 +71,17 @@ class AddForm(forms.ModelForm):
             
         # Get video information; make sure it is available
         video_info = self.get_video_info(qs['v'][0])
-        if u'status' in video_info['data']:
-            if video_info['data']['status']['value'] == 'restricted':
-                raise forms.ValidationError(u'Videon katselu youtubessa tälle videolle on rajoitettu.')
-        if video_info['data']['accessControl']['embed'] != "allowed":
-            raise forms.ValidationError(u'Videon embeddaus on estetty.')
-        
-        # Set temp description
-        self.tmp_desc = video_info['data']['title']
+        if u'data' in video_info:
+            if u'status' in video_info['data']:
+                if video_info['data']['status']['value'] == 'restricted':
+                    raise forms.ValidationError(u'Videon katselu youtubessa tälle videolle on rajoitettu.')
+            if video_info['data']['accessControl']['embed'] != "allowed":
+                raise forms.ValidationError(u'Videon embeddaus on estetty.')
+            
+            # Set temp description
+            self.tmp_desc = video_info['data']['title']
+        else:
+            raise forms.ValidationError(u'Videota ei ole olemassa!')
             
         # All done. Return valid url
         return r_url
