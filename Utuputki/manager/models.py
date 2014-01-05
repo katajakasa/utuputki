@@ -10,9 +10,17 @@ class Video(models.Model):
     deleted = models.IntegerField(u'Deleted', default=False)
 
     def __unicode__(self):
-        return self.youtube_url
+        return self.description
+
+class SkipRequest(models.Model):
+    event = models.ForeignKey(Video, verbose_name=u'Video')
+    ip = models.IPAddressField(u'Sender IP')
+    
+    def __unicode__(self):
+        return self.event.description
 
 try:
     admin.site.register(Video)
+    admin.site.register(SkipRequest)
 except:
     pass
