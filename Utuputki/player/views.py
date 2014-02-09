@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import json
-
-from django.shortcuts import render_to_response, get_object_or_404
-from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
+from django.shortcuts import render_to_response
 from django.template import RequestContext
 from Utuputki.common.responses import JSONResponse
 from Utuputki.manager.models import Video,SkipRequest
@@ -17,7 +13,6 @@ def check_skip(request):
     video_id = -1
     try:
         video_id = request.GET['video_id']
-        print video_id
     except:
         return JSONResponse({'error': 1});
     
