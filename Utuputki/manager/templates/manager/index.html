@@ -1,5 +1,6 @@
 {% extends "manager/base.html" %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 
 {% block title %}
 {{ block.super }}
@@ -13,8 +14,8 @@
 {{ block.super }}
         $('form.uniForm').uniform();
         $(".errorField").addClass("ui-state-error ui-corner-all");
-        $("#vote_skip").button();
-        $("#vote_skip").click(function() {
+        $("#vote_skip").click(function(e) {
+            e.preventDefault();
             $.ajax({ 
                 url: '{% url 'manager:reqskip' %}', 
                 dataType: 'json', 
@@ -28,71 +29,98 @@
 {% block content %}
 {{ block.super }}
 
-    <h2>Historia</h2>
+    <h2>{% trans "Playback management" %}</h2>
     <p>
-        <a href="{% url 'manager:linklist' %}">Täydellinen linkkilista CSV-muodossa</a>
-    </p>
-    
-    <h2>Toiston hallinta</h2>
-    <p>
-        {% if current %}Tällä hetkellä toistossa "{{ current.description }}"{% else %}Ei videota toistossa.{% endif %}.
-    </p>
-    <p>
-        <span id="vote_skip">Äänestä videon skippaamista</span>
-    </p>
-    <h2>Lataus</h2>
-{% crispy addform addform.helper %}
-    
-    <h2>Playlist</h2>
-{% if playlist %}
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Kuvaus</th>
-                <th>Linkki</th>
-                <th>IP</th>
-            </tr>
-        </thead>
-        <tbody>
-{% for item in playlist %}
-            <tr>
-                <td>{{ item.id }}</td>
-                <td>{{ item.description }}</td>
-                <td><a href="{{ item.youtube_url }}">{{ item.youtube_url }}</a></td>
-                <td>{{ item.ip }}</td>
-            </tr>
-{% endfor %}
-        </tbody>
-    </table>
+{% if current %}
+    {% blocktrans with title=current.description %}
+    Currently playing "{{ title }}"
+    {% endblocktrans %}
+    (<a href="" id="vote_skip">{% trans "Vote for skipping this video" %}</a>)
 {% else %}
-    <p>Playlist on tyhjä!</p>
+    {% trans "There is no video playing currently." %}
+{% endif %}.
+    </p>
+    <h2>{% trans "Playlist" %}</h2>
+
+    <div class="mblock">
+{% crispy addform addform.helper %}
+    </div>
+    
+{% if playlist %}
+    <div class="mblock">
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "ID" %}</th>
+                    <th>{% trans "Description" %}</th>
+                    <th>{% trans "URL" %}</th>
+                    <th>{% trans "IP Address" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+{% for item in playlist %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.description }}</td>
+                    <td><a href="{{ item.youtube_url }}">{{ item.youtube_url }}</a></td>
+                    <td>{{ item.ip }}</td>
+                </tr>
+{% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <p>{% trans "Playlist is empty." %}</p>
 {% endif %}
 
-    <h2>Wanhat</h2>
+    <h2>{% trans "Playlist history" %}</h2>
+    <p>
+        <a href="{% url 'manager:linklist' %}">{% trans "Download playback history in CSV format" %}</a>
+    </p>
 {% if oldies %}
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Kuvaus</th>
-                <th>Linkki</th>
-                <th>IP</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="mblock">
+        <table>
+            <thead>
+                <tr>
+                    <th>{% trans "ID" %}</th>
+                    <th>{% trans "Description" %}</th>
+                    <th>{% trans "URL" %}</th>
+                    <th>{% trans "IP Address" %}</th>
+                </tr>
+            </thead>
+            <tbody>
 {% for item in oldies %}
-            <tr>
-                <td>{{ item.id }}</td>
-                <td>{{ item.description }}</td>
-                <td><a href="{{ item.youtube_url }}">{{ item.youtube_url }}</a></td>
-                <td>{{ item.ip }}</td>
-            </tr>
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.description }}</td>
+                    <td><a href="{{ item.youtube_url }}">{{ item.youtube_url }}</a></td>
+                    <td>{{ item.ip }}</td>
+                </tr>
 {% endfor %}
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 {% else %}
-    <p>Ei wanhoja videoita!</p>
+    <p>{% trans "No old items." %}</p>
 {% endif %}
+
+    <h2>{% trans "Language" %}</h2>
+    
+    <div class="mblock">
+        <form action="{% url 'set_language' %}" method="post">
+{% csrf_token %}
+            <input name="next" type="hidden" value="{{ redirect_to }}" />
+            <select name="language">
+{% get_language_info_list for LANGUAGES as languages %}
+{% for language in languages %}
+            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                {{ language.name_local }} ({{ language.code }})
+            </option>
+{% endfor %}
+            </select>
+            <input type="submit" value="{% trans "Select" %}" />
+        </form>
+    </div>
+
 
 {% endblock %}

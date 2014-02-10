@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
 
+# Translations
+from django.utils.translation import ugettext_lazy as _
+
+# Get default context processors
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
+
 # Get path
 import os
 CONTENTDIR = os.path.dirname(__file__)
@@ -19,7 +25,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'C:\\Users\\Tuomas Virtanen\\My Documents\\Aptana Studio 3 Workspace\\Utuputki\\sqlite.db',
+        'NAME': 'sqlite.db',
         'USER': '',
         'PASSWORD': '',
         'HOST': '',
@@ -29,18 +35,27 @@ DATABASES = {
 
 # Other settings
 ALLOWED_HOSTS = []
-TIME_ZONE = 'Europe/Helsinki'
-LANGUAGE_CODE = 'fi-fi'
+TIME_ZONE = 'Europe/London'
+LANGUAGE_CODE = 'en'
 SITE_ID = 1
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+
+# Allowed languages
+LANGUAGES = (
+  ('fi', _('Finnish')),
+  ('en', _('English')),
+)
 
 # Files
 MEDIA_ROOT = os.path.join(PROJECTDIR, 'content/media/')
 MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(PROJECTDIR, 'content/static/')
 STATIC_URL = '/static/'
+
+# Add correct locale path
+LOCALE_PATHS = (os.path.join(PROJECTDIR, 'locale/'),)
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -55,7 +70,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'ki_nudr1#a2xhb5%=qe0ze2=@z&%xn5%*nsi5si=6zpqsf(r-q'
+SECRET_KEY = ''
 
 # Crispy forms stuff
 CRISPY_FAIL_SILENTLY = not DEBUG
@@ -72,6 +87,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
@@ -82,6 +98,10 @@ WSGI_APPLICATION = 'Utuputki.wsgi.application'
 
 TEMPLATE_DIRS = (
     os.path.join(CONTENTDIR, 'templates/'),
+)
+
+TEMPLATE_CONTEXT_PROCESSORS += (
+    'django.core.context_processors.i18n',
 )
 
 # Apps
@@ -98,6 +118,7 @@ INSTALLED_APPS = (
     'Utuputki.player',
     'crispy_forms',
     'south',
+    'rosetta',
 )
 
 # Logging

@@ -4,6 +4,7 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Fieldset, ButtonHolder
 from Utuputki.manager.models import Video
+from django.utils.translation import ugettext_lazy as _
 
 import urlparse
 import httplib
@@ -16,10 +17,10 @@ class AddForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Fieldset(
-                u'Lisää video playlistiin',
+                _('Add a new video to the playlist'),
                 'youtube_url',
                 ButtonHolder (
-                    Submit('submit', u'Lisää')
+                    Submit('submit', _('Add'))
                 )
             )
         )
@@ -62,12 +63,12 @@ class AddForm(forms.ModelForm):
             
             # Check if the video id exists in query string
             if 'v' not in qs:
-                raise forms.ValidationError(u'Annettu URL ei ole validi youtube-urli.')
+                raise forms.ValidationError(_('Given URL is not a valid Youtube video URL.'))
         
         # Check if url already exists for this IP
         r_url = 'http://www.youtube.com/v/'+video_id+'/'
         if self.exists(r_url):
-            raise forms.ValidationError(u'URL on jo playlistassa tällä käyttäjällä.')
+            raise forms.ValidationError(_('Given video URL is already once in the playlist with this IP.'))
             
         # Get video information; make sure it is available
         video_info = self.get_video_info(video_id)
@@ -75,26 +76,26 @@ class AddForm(forms.ModelForm):
             # Make sure video is not restricted
             if u'status' in video_info['data']:
                 if video_info['data']['status']['value'] == 'restricted':
-                    raise forms.ValidationError(u'Videon katselu youtubessa tälle videolle on rajoitettu.')
+                    raise forms.ValidationError(_('Video is restricted, and cannot be loaded.'))
                 
             # Make sure video is embeddable
             if u'accessControl' in video_info['data']:    
                 if video_info['data']['accessControl']['embed'] != "allowed":
-                    raise forms.ValidationError(u'Videon embeddaus on estetty.')
+                    raise forms.ValidationError(_('Embedding this video is not allowed, and thus cannot be loaded.'))
             
             # Make sure the video is not too long
             if u'duration' in video_info['data']:
                 duration = int(video_info['data']['duration'])
                 if duration > 900:
-                    raise forms.ValidationError(u'Video on liian pitkä. Maksimipituus on 15 minuuttia.')
+                    raise forms.ValidationError(_('Video is too long. Maximum length for the video is 15 minutes.'))
             
             # Set temp description
             if u'title' in video_info['data']:
                 self.tmp_desc = video_info['data']['title']
             else:
-                self.tmp_desc = u'Unavailable'
+                self.tmp_desc = _('Unavailable')
         else:
-            raise forms.ValidationError(u'Videota ei ole olemassa!')
+            raise forms.ValidationError(_('Video does not exist!'))
             
         # All done. Return valid url
         return r_url

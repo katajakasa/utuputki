@@ -8,28 +8,49 @@ body,p,table,td,th,div,span {
     font-size: 14px;
 }
 
+h1,
+h2,
+p,
+.mblock {
+   -moz-box-sizing: border-box;
+   -webkit-box-sizing: border-box;
+   box-sizing: border-box;
+   width: 100%;
+}
+
+p,
+.mblock {
+    background-color: #eeeeee;
+    padding: 15px;
+}
+
 h1 {
+    font-family: 'Exo', sans-serif;
+    letter-spacing: 2px;
     font-size: 2.0em;
     font-weight: bold;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    width: 100%;
+    color: white;
+    background-color: black;
+    padding: 15px;
 }
 
 h2 {
-    font-size: 1.5em;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    font-family: 'Exo', sans-serif;
+    letter-spacing: 2px;
+    font-size: 1.0em;
+    background-color: #333333;
+    padding: 15px;
+    color: white;
 }
 
-#content {
+#base {
     width: 800px;
     margin-left: auto;
     margin-right: auto;
-    background-color: #eeeeee;
-    padding: 15px;
+    border: 1px solid #888;
     box-shadow: 0 0 5px #888;
 }
-
 
 table { 
     border-collapse: collapse; 
@@ -39,7 +60,7 @@ table {
 table th { 
     padding: 5px; 
     border: 1px solid #aaaaaa; 
-    background-color: rgba(40,52,59,1); 
+    background-color: #333333; 
     color: #eeeeee; 
     text-align: left; 
 }
@@ -48,10 +69,6 @@ table td {
     padding: 5px; 
     border: 1px solid #aaaaaa; 
     background-color: #eeeeee; 
-}
-
-p {
-    margin: 1.0em;
 }
 
 /* ---------- uniForm tweaks ---------- */

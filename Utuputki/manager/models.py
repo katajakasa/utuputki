@@ -2,20 +2,21 @@
 
 from django.db import models
 from django.contrib import admin
+from django.utils.translation import ugettext_lazy as _
 
 class Video(models.Model):
-    description = models.TextField(u'Kuvaus', help_text=u'Videon kuvaus.', blank=True)
-    youtube_url = models.URLField(u'Youtube URL', help_text=u"Linkki teoksen Youtube-versioon.")
-    ip = models.IPAddressField(u'Sender IP', blank=True, null=True)
-    deleted = models.IntegerField(u'Deleted', default=False)
-    playing = models.BooleanField(u'Playing', default=False)
+    description = models.TextField(_('Description'), help_text=_('Description text for the video'), blank=True)
+    youtube_url = models.URLField(_('Youtube URL'), help_text=_("URL to a youtube video"))
+    ip = models.IPAddressField(_('Sender IP'), blank=True, null=True)
+    deleted = models.IntegerField(_('Deleted'), default=False)
+    playing = models.BooleanField(_('Playing'), default=False)
 
     def __unicode__(self):
         return self.description
 
 class SkipRequest(models.Model):
-    event = models.ForeignKey(Video, verbose_name=u'Video')
-    ip = models.IPAddressField(u'Sender IP')
+    event = models.ForeignKey(Video, verbose_name=_('Video'))
+    ip = models.IPAddressField(_('Sender IP'))
     
     def __unicode__(self):
         return self.event.description
