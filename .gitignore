@@ -4,5 +4,5 @@
 *.db
 .project
 .pydevproject
-.settings/Utuputki/settings.py
+.settings
 Utuputki/settings.py
