@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-10 02:13+0200\n"
-"PO-Revision-Date: 2014-02-10 02:03+0200\n"
+"POT-Creation-Date: 2014-02-10 02:33+0200\n"
+"PO-Revision-Date: 2014-02-10 02:34+0200\n"
 "Last-Translator:   <admin@admin.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.7.3\n"
 
@@ -83,7 +83,7 @@ msgstr "Youtube URL"
 msgid "URL to a youtube video"
 msgstr "URL youtube-videoon"
 
-#: .\Utuputki\manager\models.py:10 .\Utuputki\manager\models.py:19
+#: .\Utuputki\manager\models.py:10 .\Utuputki\manager\models.py:23
 msgid "Sender IP"
 msgstr "Lähettäjän IP"
 
@@ -95,9 +95,22 @@ msgstr "Poistettu"
 msgid "Playing"
 msgstr "Toistossa"
 
-#: .\Utuputki\manager\models.py:18
+#: .\Utuputki\manager\models.py:18 .\Utuputki\manager\models.py:22
 msgid "Video"
 msgstr "Video"
+
+#: .\Utuputki\manager\models.py:19
+#, fuzzy
+msgid "Videos"
+msgstr "Video"
+
+#: .\Utuputki\manager\models.py:29
+msgid "Skip request"
+msgstr "Ohituspyyntö"
+
+#: .\Utuputki\manager\models.py:30
+msgid "Skip requests"
+msgstr "Ohituspyynnöt"
 
 #: .\Utuputki\manager\templates\manager\index.html:32
 msgid "Playback management"

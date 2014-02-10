@@ -13,6 +13,10 @@ class Video(models.Model):
 
     def __unicode__(self):
         return self.description
+    
+    class Meta:
+        verbose_name=_("Video")
+        verbose_name_plural=_("Videos")
 
 class SkipRequest(models.Model):
     event = models.ForeignKey(Video, verbose_name=_('Video'))
@@ -20,6 +24,10 @@ class SkipRequest(models.Model):
     
     def __unicode__(self):
         return self.event.description
+
+    class Meta:
+        verbose_name=_("Skip request")
+        verbose_name_plural=_("Skip requests")
 
 try:
     admin.site.register(Video)
