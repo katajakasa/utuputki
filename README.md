@@ -28,3 +28,8 @@ Utuputki comes with english and finnish translations at the moment. Translating 
 License
 -------
 MIT. Please refer to `LICENSE` for more information.
+
+Screenshots
+-----------
+![manager](https://github.com/katajakasa/utuputki/raw/master/screenshots/manager.png "Video manager")
+![player](https://github.com/katajakasa/utuputki/raw/master/screenshots/player.png "Video player")
