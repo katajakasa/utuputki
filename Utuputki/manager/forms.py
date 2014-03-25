@@ -2,7 +2,7 @@
 
 from django import forms
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Fieldset, ButtonHolder
+from crispy_forms.layout import Submit, Layout, Fieldset, ButtonHolder, HTML
 from Utuputki.manager.models import Video
 from django.utils.translation import ugettext_lazy as _
 
@@ -20,6 +20,7 @@ class AddForm(forms.ModelForm):
                 _('Add a new video to the playlist'),
                 'youtube_url',
                 ButtonHolder (
+                    HTML('<input type="reset" value="C" />'),
                     Submit('submit', _('Add'))
                 )
             )
