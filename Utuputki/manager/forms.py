@@ -49,7 +49,10 @@ class AddForm(forms.ModelForm):
         
         # Check if we already have a valid embed url
         url = self.cleaned_data['youtube_url']
-        if url.find('http://www.youtube.com/v/') == 0:
+        if url.find('http://www.youtube.com/v/') == 0 \
+                or url.find('https://www.youtube.com/v/') == 0 \
+                or url.find('http://youtu.be/') == 0 \
+                or url.find('https://youtu.be/') == 0:
             parsed = urlparse.urlparse(url)
             mpath = parsed.path
             if mpath[-1:] == '/':
@@ -59,11 +62,13 @@ class AddForm(forms.ModelForm):
         else:
             parsed = urlparse.urlparse(url)
             qs = urlparse.parse_qs(parsed.query)
-            video_id = qs['v'][0]
             
             # Check if the video id exists in query string
             if 'v' not in qs:
                 raise forms.ValidationError(_('Given URL is not a valid Youtube video URL.'))
+            
+            # Get video ID
+            video_id = qs['v'][0]
         
         # Check if url already exists for this IP
         r_url = 'http://www.youtube.com/v/'+video_id+'/'
