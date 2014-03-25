@@ -47,8 +47,10 @@ class AddForm(forms.ModelForm):
         if not self.cleaned_data['youtube_url']:
             return self.cleaned_data['youtube_url']
         
+        # Clean up url (trim whitespace etc.)
+        url = self.cleaned_data['youtube_url'].strip()
+        
         # Check if we already have a valid embed url
-        url = self.cleaned_data['youtube_url']
         if url.find('http://www.youtube.com/v/') == 0 \
                 or url.find('https://www.youtube.com/v/') == 0 \
                 or url.find('http://youtu.be/') == 0 \
