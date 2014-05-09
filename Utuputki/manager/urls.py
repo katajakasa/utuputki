@@ -7,5 +7,5 @@ urlpatterns = patterns(
     url(r'^$', 'index', name="index"),
     url(r'^linklist/$', 'linklist', name="linklist"),
     url(r'^reqskip/$', 'request_skip', name="reqskip"),
-    url(r'^playlist/$', 'get_playlist', name="get_playlist"),
+    url(r'^getdata/$', 'get_data', name="getdata"),
 )

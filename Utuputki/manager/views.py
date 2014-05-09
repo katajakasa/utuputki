@@ -27,7 +27,7 @@ def request_skip(request):
     
     return JSONResponse({'error': 2})
 
-def get_playlist(request):
+def get_data(request):
     outlist = {
         'current': None,
         'playlist': [],
@@ -78,14 +78,6 @@ def linklist(request):
     return response
 
 def index(request):
-    oldies = Video.objects.filter(deleted=True).order_by('-id')[:5]
-    playlist = Video.objects.filter(deleted=False).order_by('id')
-    
-    try:
-        current = Video.objects.get(playing=True)
-    except Video.DoesNotExist:
-        current = None
-    
     ip = request.META['REMOTE_ADDR']
     if request.method == "POST":
         addform = AddForm(request.POST, ip=ip)
@@ -99,9 +91,6 @@ def index(request):
         addform = AddForm(ip=ip)
     
     return render_to_response("manager/index.html", {
-        'playlist': playlist,
-        'oldies': oldies,
         'addform': addform,
-        'current': current,
     }, context_instance=RequestContext(request))
     

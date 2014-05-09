@@ -12,44 +12,123 @@
 
 {% block jquery %}
 {{ block.super }}
-        $('form.uniForm').uniform();
-        $(".errorField").addClass("ui-state-error ui-corner-all");
-        $("#vote_skip").click(function(e) {
-            e.preventDefault();
+		var data_timer = null;
+		
+        function wait() {
+            if(data_timer != null) {
+                window.clearTimeout(data_timer);
+            }
+            data_timer = setTimeout($.proxy(get_data, this), 2000);
+        }
+
+        function get_data() {
             $.ajax({ 
-                url: '{% url 'manager:reqskip' %}', 
+                url: '{% url 'manager:getdata' %}', 
                 dataType: 'json', 
+                success: $.proxy(fetch_success, this),
                 timeout: 5000,
                 type: 'GET',
+                error: $.proxy(fetch_failure, this)
             });
-        });
-        $('.urlinput').addClass('textInput');
-        $('input[type=submit]').button();
-        $('input[type=reset]').button();
+        }
+        
+        function add_list_elements(list, data) {
+        	var html = '';
+        	$.each(data, function(index, entry) {
+        		html += '<tr> \
+        			<td>'+entry['id']+'</td> \
+        			<td>'+entry['description']+'</td> \
+        			<td><a href="'+entry['youtube_url']+'">'+entry['youtube_url']+'</a></td> \
+        			<td>'+entry['ip']+'</td> \
+        		</tr>';
+        	});
+        	list.html(html);
+        }
+        
+        function toggle_data_error(data_id, errortext_id, data) {
+        	if(data.length > 0) {
+        		data_id.show();
+        		errortext_id.hide();
+        	} else {
+        		data_id.hide();
+        		errortext_id.show();
+        	}
+        }
+        
+        function fetch_success(data) {
+			add_list_elements($('#playlistcontent'), data['playlist']);
+			add_list_elements($('#oldcontent'), data['old']);
+			toggle_data_error($('#playlist_table'), $('#playlist_text'), data['playlist']);
+			toggle_data_error($('#old_table'), $('#old_text'), data['old']);
+			
+			if(data['current']) {
+				$('#currentcontent').html(data['current']['description']);
+				$('#current_title').show();
+				$('#current_error').hide();
+			} else {
+				$('#currentcontent').html('');
+				$('#current_title').hide();
+				$('#current_error').show();
+			}
+			
+			wait();
+        }
+        
+        function fetch_failure() {
+            console.log("FETCH FAILURE!");
+            wait();
+        }
+        
+        function send_skip_request() {
+	        $.ajax({ 
+	            url: '{% url 'manager:reqskip' %}', 
+	            dataType: 'json', 
+	            timeout: 5000,
+	            type: 'GET',
+	        });
+        }
+
+		function init() {
+	        $('form.uniForm').uniform();
+	        $(".errorField").addClass("ui-state-error ui-corner-all");
+	        $("#vote_skip").click(function(e) {
+	            e.preventDefault();
+				send_skip_request();
+	        });
+	        $('.urlinput').addClass('textInput');
+	        $('input[type=submit]').button();
+	        $('input[type=reset]').button();
+	        
+	        $('#playlist_table').hide();
+	        $('#old_table').hide();
+	        $('#current_title').hide();
+	        
+	        get_data();
+		}
+
+		init();
 {% endblock %}
 
 {% block content %}
 {{ block.super }}
 
     <h2>{% trans "Playback management" %}</h2>
-    <p>
-{% if current %}
-    {% blocktrans with title=current.description %}
-    Currently playing "{{ title }}"
-    {% endblocktrans %}
-    (<a href="" id="vote_skip">{% trans "Vote for skipping this video" %}</a>)
-{% else %}
-    {% trans "There is no video playing currently." %}
-{% endif %}.
+    <p id="current_title">
+    	{% trans "Currently playing" %}
+    	"<span id="currentcontent">{{ title }}</span>"
+    	(<a href="" id="vote_skip">{% trans "Vote for skipping this video" %}</a>)
     </p>
+    <p id="current_error">
+    	{% trans "There is no video playing currently." %}
+    </p>
+
     <h2>{% trans "Playlist" %}</h2>
 
     <div class="mblock">
 {% crispy addform addform.helper %}
     </div>
     
-{% if playlist %}
-    <div class="mblock">
+    <div class="mblock" id="playlist_table">
         <table>
             <thead>
                 <tr>
@@ -59,28 +138,17 @@
                     <th>{% trans "IP Address" %}</th>
                 </tr>
             </thead>
-            <tbody>
-{% for item in playlist %}
-                <tr>
-                    <td>{{ item.id }}</td>
-                    <td>{{ item.description }}</td>
-                    <td><a href="{{ item.youtube_url }}">{{ item.youtube_url }}</a></td>
-                    <td>{{ item.ip }}</td>
-                </tr>
-{% endfor %}
+            <tbody id="playlistcontent">
             </tbody>
         </table>
     </div>
-{% else %}
-    <p>{% trans "Playlist is empty." %}</p>
-{% endif %}
+    <p id="playlist_text">{% trans "No entries in playlist" %}</p>
 
     <h2>{% trans "Playlist history" %}</h2>
     <p>
         <a href="{% url 'manager:linklist' %}">{% trans "Download playback history in CSV format" %}</a>
     </p>
-{% if oldies %}
-    <div class="mblock">
+    <div class="mblock" id="old_table">
         <table>
             <thead>
                 <tr>
@@ -90,21 +158,11 @@
                     <th>{% trans "IP Address" %}</th>
                 </tr>
             </thead>
-            <tbody>
-{% for item in oldies %}
-                <tr>
-                    <td>{{ item.id }}</td>
-                    <td>{{ item.description }}</td>
-                    <td><a href="{{ item.youtube_url }}">{{ item.youtube_url }}</a></td>
-                    <td>{{ item.ip }}</td>
-                </tr>
-{% endfor %}
+            <tbody id="oldcontent">
             </tbody>
         </table>
     </div>
-{% else %}
-    <p>{% trans "No old items." %}</p>
-{% endif %}
+    <p id="old_text">{% trans "No old entries" %}</p>
 
     <h2>{% trans "Language" %}</h2>
     
