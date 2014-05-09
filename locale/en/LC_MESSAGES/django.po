@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-09 22:17+0300\n"
+"POT-Creation-Date: 2014-05-09 22:50+0300\n"
 "PO-Revision-Date: 2014-02-10 01:02+0200\n"
 "Last-Translator:   <admin@admin.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,8 +63,8 @@ msgid "Video does not exist!"
 msgstr ""
 
 #: Utuputki/manager/models.py:8
-#: Utuputki/manager/templates/manager/index.html:136
-#: Utuputki/manager/templates/manager/index.html:156
+#: Utuputki/manager/templates/manager/index.html:142
+#: Utuputki/manager/templates/manager/index.html:162
 msgid "Description"
 msgstr ""
 
@@ -108,61 +108,65 @@ msgstr ""
 msgid "Skip requests"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:115
+#: Utuputki/manager/templates/manager/index.html:118
 msgid "Playback management"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:117
-msgid "Currently playing"
+#: Utuputki/manager/templates/manager/index.html:120
+msgid "Now playing"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:119
-msgid "Vote for skipping this video"
-msgstr ""
-
-#: Utuputki/manager/templates/manager/index.html:122
-msgid "There is no video playing currently."
+#: Utuputki/manager/templates/manager/index.html:124
+msgid "users have requested skipping this video"
 msgstr ""
 
 #: Utuputki/manager/templates/manager/index.html:125
+msgid "Vote for skipping this video"
+msgstr ""
+
+#: Utuputki/manager/templates/manager/index.html:128
+msgid "There is no video playing currently."
+msgstr ""
+
+#: Utuputki/manager/templates/manager/index.html:131
 msgid "Playlist"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:135
-#: Utuputki/manager/templates/manager/index.html:155
+#: Utuputki/manager/templates/manager/index.html:141
+#: Utuputki/manager/templates/manager/index.html:161
 msgid "ID"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:137
-#: Utuputki/manager/templates/manager/index.html:157
+#: Utuputki/manager/templates/manager/index.html:143
+#: Utuputki/manager/templates/manager/index.html:163
 msgid "URL"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:138
-#: Utuputki/manager/templates/manager/index.html:158
+#: Utuputki/manager/templates/manager/index.html:144
+#: Utuputki/manager/templates/manager/index.html:164
 msgid "IP Address"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:145
+#: Utuputki/manager/templates/manager/index.html:151
 msgid "No entries in playlist"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:147
+#: Utuputki/manager/templates/manager/index.html:153
 msgid "Playlist history"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:149
+#: Utuputki/manager/templates/manager/index.html:155
 msgid "Download playback history in CSV format"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:165
+#: Utuputki/manager/templates/manager/index.html:171
 msgid "No old entries"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:167
+#: Utuputki/manager/templates/manager/index.html:173
 msgid "Language"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:181
+#: Utuputki/manager/templates/manager/index.html:187
 msgid "Select"
 msgstr ""
