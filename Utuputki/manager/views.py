@@ -27,6 +27,47 @@ def request_skip(request):
     
     return JSONResponse({'error': 2})
 
+def get_playlist(request):
+    outlist = {
+        'current': None,
+        'playlist': [],
+        'old': [],
+        'error': 0,
+    }
+    
+    try:
+        current = Video.objects.get(playing=True)
+        outlist['current'] = {
+            'id': current.id,
+            'ip': current.ip,
+            'description': current.description,
+            'youtube_url': current.youtube_url
+        }
+    except Video.DoesNotExist:
+        outlist['current'] = None
+    
+    # Old videos
+    for v in Video.objects.filter(deleted=True).order_by('-id')[:5]:
+        o = {
+            'id': v.id,
+            'description': v.description,
+            'youtube_url': v.youtube_url,
+            'ip': v.ip,
+        }
+        outlist['old'].append(o)
+    
+    # Old videos
+    for v in Video.objects.filter(deleted=False).order_by('id'):
+        o = {
+            'id': v.id,
+            'description': v.description,
+            'youtube_url': v.youtube_url,
+            'ip': v.ip,
+        }
+        outlist['playlist'].append(o)
+
+    return JSONResponse(outlist)
+
 def linklist(request):
     response = render_to_response("manager/list.txt", {
         'playlist': Video.objects.all().order_by('id'),

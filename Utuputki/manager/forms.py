@@ -83,8 +83,9 @@ class AddForm(forms.ModelForm):
         if u'data' in video_info:
             # Make sure video is not restricted
             if u'status' in video_info['data']:
-                if video_info['data']['status']['value'] == 'restricted':
-                    raise forms.ValidationError(_('Video is restricted, and cannot be loaded.'))
+                if u'value' in video_info['data']['status']:
+                    if video_info['data']['status']['value'] == 'restricted':
+                        raise forms.ValidationError(_('Video is restricted, and cannot be loaded.'))
                 
             # Make sure video is embeddable
             if u'accessControl' in video_info['data']:    
