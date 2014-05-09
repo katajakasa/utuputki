@@ -12,7 +12,7 @@ import json
 
 class AddForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        self.ip = kwargs.pop('ip', None)
+        self.session_key = kwargs.pop('session_key', None)
         super(AddForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
@@ -27,7 +27,7 @@ class AddForm(forms.ModelForm):
         )
         
     def exists(self, url):
-        pitems = Video.objects.filter(deleted=False, ip=self.ip, youtube_url=url)
+        pitems = Video.objects.filter(deleted=False, key=self.session_key, youtube_url=url)
         if len(pitems) > 0:
             return True
         return False

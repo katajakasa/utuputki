@@ -10,17 +10,17 @@ from Utuputki.manager.models import Video,SkipRequest
 from Utuputki.manager.forms import AddForm
 
 def request_skip(request):
-    ip = request.META['REMOTE_ADDR']
     try:
         current = Video.objects.get(playing=True)
     except Video.DoesNotExist:
         return JSONResponse({'error': 1})
     
+    key = request.session.session_key
     try:
-        SkipRequest.objects.get(ip=ip,event=current)
+        SkipRequest.objects.get(key=key,event=current)
     except SkipRequest.DoesNotExist:
         req = SkipRequest()
-        req.ip = ip
+        req.key = key
         req.event = current
         req.save()
         return JSONResponse({'error': 0})
@@ -40,7 +40,6 @@ def get_data(request):
         current = Video.objects.get(playing=True)
         outlist['current'] = {
             'id': current.id,
-            'ip': current.ip,
             'description': current.description,
             'youtube_url': current.youtube_url
         }
@@ -55,7 +54,6 @@ def get_data(request):
             'id': v.id,
             'description': v.description,
             'youtube_url': v.youtube_url,
-            'ip': v.ip,
         }
         outlist['old'].append(o)
     
@@ -65,7 +63,6 @@ def get_data(request):
             'id': v.id,
             'description': v.description,
             'youtube_url': v.youtube_url,
-            'ip': v.ip,
         }
         outlist['playlist'].append(o)
 
@@ -81,17 +78,17 @@ def linklist(request):
     return response
 
 def index(request):
-    ip = request.META['REMOTE_ADDR']
+    key = request.session.session_key
     if request.method == "POST":
-        addform = AddForm(request.POST, ip=ip)
+        addform = AddForm(request.POST, session_key=key)
         if addform.is_valid():
             d = addform.save(commit=False)
-            d.ip = ip
             d.description = addform.tmp_desc
+            d.key = key
             d.save()
             return HttpResponseRedirect(reverse('manager:index'))
     else:
-        addform = AddForm(ip=ip)
+        addform = AddForm(session_key=key)
     
     return render_to_response("manager/index.html", {
         'addform': addform,

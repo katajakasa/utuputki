@@ -14,10 +14,15 @@
 {{ block.super }}
 		var data_timer = null;
 		
-        function wait() {
+		function clear_timer() {
             if(data_timer != null) {
                 window.clearTimeout(data_timer);
             }
+            data_timer = null;
+		}
+		
+        function wait() {
+			clear_timer();
             data_timer = setTimeout($.proxy(get_data, this), 3000);
         }
 
@@ -32,6 +37,11 @@
             });
         }
         
+        function force_update() {
+        	clear_timer();
+        	get_data();
+        }
+        
         function add_list_elements(list, data) {
         	var html = '';
         	$.each(data, function(index, entry) {
@@ -39,7 +49,6 @@
         			<td>'+entry['id']+'</td> \
         			<td>'+entry['description']+'</td> \
         			<td><a href="'+entry['youtube_url']+'">'+entry['youtube_url']+'</a></td> \
-        			<td>'+entry['ip']+'</td> \
         		</tr>';
         	});
         	list.html(html);
@@ -86,6 +95,7 @@
 	            url: '{% url 'manager:reqskip' %}', 
 	            dataType: 'json', 
 	            timeout: 5000,
+	            success: $.proxy(force_update, this),
 	            type: 'GET',
 	        });
         }
@@ -141,7 +151,6 @@
                     <th>{% trans "ID" %}</th>
                     <th>{% trans "Description" %}</th>
                     <th>{% trans "URL" %}</th>
-                    <th>{% trans "IP Address" %}</th>
                 </tr>
             </thead>
             <tbody id="playlistcontent">
@@ -161,7 +170,6 @@
                     <th>{% trans "ID" %}</th>
                     <th>{% trans "Description" %}</th>
                     <th>{% trans "URL" %}</th>
-                    <th>{% trans "IP Address" %}</th>
                 </tr>
             </thead>
             <tbody id="oldcontent">

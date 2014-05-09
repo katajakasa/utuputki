@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 class Video(models.Model):
     description = models.TextField(_('Description'), help_text=_('Description text for the video'), blank=True)
     youtube_url = models.URLField(_('Youtube URL'), help_text=_("URL to a youtube video"))
-    ip = models.IPAddressField(_('Sender IP'), blank=True, null=True)
+    key = models.CharField(_('Sender Key'), max_length=64, null=True, blank=True)
     deleted = models.IntegerField(_('Deleted'), default=False)
     playing = models.BooleanField(_('Playing'), default=False)
 
@@ -20,7 +20,7 @@ class Video(models.Model):
 
 class SkipRequest(models.Model):
     event = models.ForeignKey(Video, verbose_name=_('Video'))
-    ip = models.IPAddressField(_('Sender IP'))
+    key = models.CharField(_('Sender Key'), max_length=64)
     
     def __unicode__(self):
         return self.event.description
