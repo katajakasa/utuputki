@@ -78,6 +78,9 @@ def linklist(request):
     return response
 
 def index(request):
+    if not request.session.session_key or request.session.session_key == '':
+        request.session.cycle_key()
+
     key = request.session.session_key
     if request.method == "POST":
         addform = AddForm(request.POST, session_key=key)
