@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-10 02:33+0200\n"
-"PO-Revision-Date: 2014-02-10 02:34+0200\n"
+"POT-Creation-Date: 2014-05-09 22:23+0300\n"
+"PO-Revision-Date: 2014-05-09 20:23+0100\n"
 "Last-Translator:   <admin@admin.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,165 +17,165 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Translated-Using: django-rosetta 0.7.3\n"
+"X-Translated-Using: django-rosetta 0.7.2\n"
 
-#: .\Utuputki\settings.py:47
+#: Utuputki/settings.py:47
 msgid "Finnish"
 msgstr "Suomi"
 
-#: .\Utuputki\settings.py:48
+#: Utuputki/settings.py:48
 msgid "English"
 msgstr "Englanti"
 
-#: .\Utuputki\manager\forms.py:20
+#: Utuputki/manager/forms.py:20
 msgid "Add a new video to the playlist"
 msgstr "Lisää uusi video toistolistalle"
 
-#: .\Utuputki\manager\forms.py:23
+#: Utuputki/manager/forms.py:24
 msgid "Add"
 msgstr "Lisää"
 
-#: .\Utuputki\manager\forms.py:66
+#: Utuputki/manager/forms.py:71
 msgid "Given URL is not a valid Youtube video URL."
 msgstr "Annettu URL ei sisällä toimivaa Youtube-videota"
 
-#: .\Utuputki\manager\forms.py:71
+#: Utuputki/manager/forms.py:79
 msgid "Given video URL is already once in the playlist with this IP."
 msgstr "Annettu URL on jo kertaalleen toistolistalla tällä IP-osoitteella"
 
-#: .\Utuputki\manager\forms.py:79
+#: Utuputki/manager/forms.py:88
 msgid "Video is restricted, and cannot be loaded."
 msgstr ""
 "Videon toisto on rajoitettu, eikä sitä siten voida lisätä toistolistalle."
 
-#: .\Utuputki\manager\forms.py:84
+#: Utuputki/manager/forms.py:93
 msgid "Embedding this video is not allowed, and thus cannot be loaded."
 msgstr ""
 "Videon embeddaus on estetty, eikä sitä siten voida lisätä toistolistalle."
 
-#: .\Utuputki\manager\forms.py:90
+#: Utuputki/manager/forms.py:99
 msgid "Video is too long. Maximum length for the video is 15 minutes."
 msgstr "Video on liian pitkä. Videon maksimikesto on 15 minuuttia."
 
-#: .\Utuputki\manager\forms.py:96
+#: Utuputki/manager/forms.py:105
 msgid "Unavailable"
 msgstr "Ei saatavilla"
 
-#: .\Utuputki\manager\forms.py:98
+#: Utuputki/manager/forms.py:107
 msgid "Video does not exist!"
 msgstr "Videota ei ole olemassa!"
 
-#: .\Utuputki\manager\models.py:8
-#: .\Utuputki\manager\templates\manager\index.html:55
-#: .\Utuputki\manager\templates\manager\index.html:86
+#: Utuputki/manager/models.py:8
+#: Utuputki/manager/templates/manager/index.html:136
+#: Utuputki/manager/templates/manager/index.html:156
 msgid "Description"
 msgstr "Kuvaus"
 
-#: .\Utuputki\manager\models.py:8
+#: Utuputki/manager/models.py:8
 msgid "Description text for the video"
 msgstr "Kuvausteksti videolle"
 
-#: .\Utuputki\manager\models.py:9
+#: Utuputki/manager/models.py:9
 msgid "Youtube URL"
 msgstr "Youtube URL"
 
-#: .\Utuputki\manager\models.py:9
+#: Utuputki/manager/models.py:9
 msgid "URL to a youtube video"
 msgstr "URL youtube-videoon"
 
-#: .\Utuputki\manager\models.py:10 .\Utuputki\manager\models.py:23
+#: Utuputki/manager/models.py:10 Utuputki/manager/models.py:23
 msgid "Sender IP"
 msgstr "Lähettäjän IP"
 
-#: .\Utuputki\manager\models.py:11
+#: Utuputki/manager/models.py:11
 msgid "Deleted"
 msgstr "Poistettu"
 
-#: .\Utuputki\manager\models.py:12
+#: Utuputki/manager/models.py:12
 msgid "Playing"
 msgstr "Toistossa"
 
-#: .\Utuputki\manager\models.py:18 .\Utuputki\manager\models.py:22
+#: Utuputki/manager/models.py:18 Utuputki/manager/models.py:22
 msgid "Video"
 msgstr "Video"
 
-#: .\Utuputki\manager\models.py:19
-#, fuzzy
+#: Utuputki/manager/models.py:19
 msgid "Videos"
-msgstr "Video"
+msgstr "Videot"
 
-#: .\Utuputki\manager\models.py:29
+#: Utuputki/manager/models.py:29
 msgid "Skip request"
 msgstr "Ohituspyyntö"
 
-#: .\Utuputki\manager\models.py:30
+#: Utuputki/manager/models.py:30
 msgid "Skip requests"
 msgstr "Ohituspyynnöt"
 
-#: .\Utuputki\manager\templates\manager\index.html:32
+#: Utuputki/manager/templates/manager/index.html:115
 msgid "Playback management"
 msgstr "Toistonhallinta"
 
-#: .\Utuputki\manager\templates\manager\index.html:35
-#, python-format
-msgid ""
-"\n"
-"    Currently playing \"%(title)s\"\n"
-"    "
+#: Utuputki/manager/templates/manager/index.html:117
+#, fuzzy
+msgid "Currently playing"
 msgstr ""
 "\n"
 "Tällä hetkellä toistossa \"%(title)s\""
 
-#: .\Utuputki\manager\templates\manager\index.html:38
+#: Utuputki/manager/templates/manager/index.html:119
 msgid "Vote for skipping this video"
 msgstr "Äänestä videon ohittamista"
 
-#: .\Utuputki\manager\templates\manager\index.html:40
+#: Utuputki/manager/templates/manager/index.html:122
 msgid "There is no video playing currently."
 msgstr "Tällä hetkellä toistettavana ei ole videota."
 
-#: .\Utuputki\manager\templates\manager\index.html:43
+#: Utuputki/manager/templates/manager/index.html:125
 msgid "Playlist"
 msgstr "Toistolista"
 
-#: .\Utuputki\manager\templates\manager\index.html:54
-#: .\Utuputki\manager\templates\manager\index.html:85
+#: Utuputki/manager/templates/manager/index.html:135
+#: Utuputki/manager/templates/manager/index.html:155
 msgid "ID"
 msgstr "ID"
 
-#: .\Utuputki\manager\templates\manager\index.html:56
-#: .\Utuputki\manager\templates\manager\index.html:87
+#: Utuputki/manager/templates/manager/index.html:137
+#: Utuputki/manager/templates/manager/index.html:157
 msgid "URL"
 msgstr "URL"
 
-#: .\Utuputki\manager\templates\manager\index.html:57
-#: .\Utuputki\manager\templates\manager\index.html:88
+#: Utuputki/manager/templates/manager/index.html:138
+#: Utuputki/manager/templates/manager/index.html:158
 msgid "IP Address"
 msgstr "IP-osoite"
 
-#: .\Utuputki\manager\templates\manager\index.html:73
-msgid "Playlist is empty."
-msgstr "Toistolista on tyhjä"
+#: Utuputki/manager/templates/manager/index.html:145
+msgid "No entries in playlist"
+msgstr "Toistolista on tyhjä."
 
-#: .\Utuputki\manager\templates\manager\index.html:76
+#: Utuputki/manager/templates/manager/index.html:147
 msgid "Playlist history"
 msgstr "Toistohistoria"
 
-#: .\Utuputki\manager\templates\manager\index.html:78
+#: Utuputki/manager/templates/manager/index.html:149
 msgid "Download playback history in CSV format"
 msgstr "Lataa toistohistoria CSV-muodossa"
 
-#: .\Utuputki\manager\templates\manager\index.html:104
-msgid "No old items."
+#: Utuputki/manager/templates/manager/index.html:165
+#, fuzzy
+msgid "No old entries"
 msgstr "Ei vanhoja kohteita"
 
-#: .\Utuputki\manager\templates\manager\index.html:107
+#: Utuputki/manager/templates/manager/index.html:167
 msgid "Language"
 msgstr "Kieli"
 
-#: .\Utuputki\manager\templates\manager\index.html:121
+#: Utuputki/manager/templates/manager/index.html:181
 msgid "Select"
 msgstr "Valitse"
+
+#~ msgid "Playlist is empty."
+#~ msgstr "Toistolista on tyhjä"
 
 #~ msgid "Playback history"
 #~ msgstr "Toistohistoria"

@@ -2,13 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-10 02:33+0200\n"
+"POT-Creation-Date: 2014-05-09 22:17+0300\n"
 "PO-Revision-Date: 2014-02-10 01:02+0200\n"
 "Last-Translator:   <admin@admin.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,155 +18,151 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Translated-Using: django-rosetta 0.7.3\n"
 
-#: .\Utuputki\settings.py:47
+#: Utuputki/settings.py:47
 msgid "Finnish"
 msgstr ""
 
-#: .\Utuputki\settings.py:48
+#: Utuputki/settings.py:48
 msgid "English"
 msgstr ""
 
-#: .\Utuputki\manager\forms.py:20
+#: Utuputki/manager/forms.py:20
 msgid "Add a new video to the playlist"
 msgstr ""
 
-#: .\Utuputki\manager\forms.py:23
+#: Utuputki/manager/forms.py:24
 msgid "Add"
 msgstr ""
 
-#: .\Utuputki\manager\forms.py:66
+#: Utuputki/manager/forms.py:71
 msgid "Given URL is not a valid Youtube video URL."
 msgstr ""
 
-#: .\Utuputki\manager\forms.py:71
+#: Utuputki/manager/forms.py:79
 msgid "Given video URL is already once in the playlist with this IP."
 msgstr ""
 
-#: .\Utuputki\manager\forms.py:79
+#: Utuputki/manager/forms.py:88
 msgid "Video is restricted, and cannot be loaded."
 msgstr ""
 
-#: .\Utuputki\manager\forms.py:84
+#: Utuputki/manager/forms.py:93
 msgid "Embedding this video is not allowed, and thus cannot be loaded."
 msgstr ""
 
-#: .\Utuputki\manager\forms.py:90
+#: Utuputki/manager/forms.py:99
 msgid "Video is too long. Maximum length for the video is 15 minutes."
 msgstr ""
 
-#: .\Utuputki\manager\forms.py:96
+#: Utuputki/manager/forms.py:105
 msgid "Unavailable"
 msgstr ""
 
-#: .\Utuputki\manager\forms.py:98
+#: Utuputki/manager/forms.py:107
 msgid "Video does not exist!"
 msgstr ""
 
-#: .\Utuputki\manager\models.py:8
-#: .\Utuputki\manager\templates\manager\index.html:55
-#: .\Utuputki\manager\templates\manager\index.html:86
+#: Utuputki/manager/models.py:8
+#: Utuputki/manager/templates/manager/index.html:136
+#: Utuputki/manager/templates/manager/index.html:156
 msgid "Description"
 msgstr ""
 
-#: .\Utuputki\manager\models.py:8
+#: Utuputki/manager/models.py:8
 msgid "Description text for the video"
 msgstr ""
 
-#: .\Utuputki\manager\models.py:9
+#: Utuputki/manager/models.py:9
 msgid "Youtube URL"
 msgstr ""
 
-#: .\Utuputki\manager\models.py:9
+#: Utuputki/manager/models.py:9
 msgid "URL to a youtube video"
 msgstr ""
 
-#: .\Utuputki\manager\models.py:10 .\Utuputki\manager\models.py:23
+#: Utuputki/manager/models.py:10 Utuputki/manager/models.py:23
 msgid "Sender IP"
 msgstr ""
 
-#: .\Utuputki\manager\models.py:11
+#: Utuputki/manager/models.py:11
 msgid "Deleted"
 msgstr ""
 
-#: .\Utuputki\manager\models.py:12
+#: Utuputki/manager/models.py:12
 msgid "Playing"
 msgstr ""
 
-#: .\Utuputki\manager\models.py:18 .\Utuputki\manager\models.py:22
+#: Utuputki/manager/models.py:18 Utuputki/manager/models.py:22
 msgid "Video"
 msgstr ""
 
-#: .\Utuputki\manager\models.py:19
+#: Utuputki/manager/models.py:19
 msgid "Videos"
 msgstr ""
 
-#: .\Utuputki\manager\models.py:29
+#: Utuputki/manager/models.py:29
 msgid "Skip request"
 msgstr ""
 
-#: .\Utuputki\manager\models.py:30
+#: Utuputki/manager/models.py:30
 msgid "Skip requests"
 msgstr ""
 
-#: .\Utuputki\manager\templates\manager\index.html:32
+#: Utuputki/manager/templates/manager/index.html:115
 msgid "Playback management"
 msgstr ""
 
-#: .\Utuputki\manager\templates\manager\index.html:35
-#, python-format
-msgid ""
-"\n"
-"    Currently playing \"%(title)s\"\n"
-"    "
+#: Utuputki/manager/templates/manager/index.html:117
+msgid "Currently playing"
 msgstr ""
 
-#: .\Utuputki\manager\templates\manager\index.html:38
+#: Utuputki/manager/templates/manager/index.html:119
 msgid "Vote for skipping this video"
 msgstr ""
 
-#: .\Utuputki\manager\templates\manager\index.html:40
+#: Utuputki/manager/templates/manager/index.html:122
 msgid "There is no video playing currently."
 msgstr ""
 
-#: .\Utuputki\manager\templates\manager\index.html:43
+#: Utuputki/manager/templates/manager/index.html:125
 msgid "Playlist"
 msgstr ""
 
-#: .\Utuputki\manager\templates\manager\index.html:54
-#: .\Utuputki\manager\templates\manager\index.html:85
+#: Utuputki/manager/templates/manager/index.html:135
+#: Utuputki/manager/templates/manager/index.html:155
 msgid "ID"
 msgstr ""
 
-#: .\Utuputki\manager\templates\manager\index.html:56
-#: .\Utuputki\manager\templates\manager\index.html:87
+#: Utuputki/manager/templates/manager/index.html:137
+#: Utuputki/manager/templates/manager/index.html:157
 msgid "URL"
 msgstr ""
 
-#: .\Utuputki\manager\templates\manager\index.html:57
-#: .\Utuputki\manager\templates\manager\index.html:88
+#: Utuputki/manager/templates/manager/index.html:138
+#: Utuputki/manager/templates/manager/index.html:158
 msgid "IP Address"
 msgstr ""
 
-#: .\Utuputki\manager\templates\manager\index.html:73
-msgid "Playlist is empty."
+#: Utuputki/manager/templates/manager/index.html:145
+msgid "No entries in playlist"
 msgstr ""
 
-#: .\Utuputki\manager\templates\manager\index.html:76
+#: Utuputki/manager/templates/manager/index.html:147
 msgid "Playlist history"
 msgstr ""
 
-#: .\Utuputki\manager\templates\manager\index.html:78
+#: Utuputki/manager/templates/manager/index.html:149
 msgid "Download playback history in CSV format"
 msgstr ""
 
-#: .\Utuputki\manager\templates\manager\index.html:104
-msgid "No old items."
+#: Utuputki/manager/templates/manager/index.html:165
+msgid "No old entries"
 msgstr ""
 
-#: .\Utuputki\manager\templates\manager\index.html:107
+#: Utuputki/manager/templates/manager/index.html:167
 msgid "Language"
 msgstr ""
 
-#: .\Utuputki\manager\templates\manager\index.html:121
+#: Utuputki/manager/templates/manager/index.html:181
 msgid "Select"
 msgstr ""
