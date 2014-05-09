@@ -32,6 +32,7 @@ def get_data(request):
         'current': None,
         'playlist': [],
         'old': [],
+        'skips': 0,
         'error': 0,
     }
     
@@ -43,6 +44,8 @@ def get_data(request):
             'description': current.description,
             'youtube_url': current.youtube_url
         }
+        skipreqs = SkipRequest.objects.filter(event=current)
+        outlist['skips'] = len(skipreqs)
     except Video.DoesNotExist:
         outlist['current'] = None
     

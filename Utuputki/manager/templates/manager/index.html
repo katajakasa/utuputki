@@ -63,13 +63,15 @@
 			
 			if(data['current']) {
 				$('#currentcontent').html(data['current']['description']);
-				$('#current_title').show();
+				$('.current_block').show();
 				$('#current_error').hide();
 			} else {
 				$('#currentcontent').html('');
-				$('#current_title').hide();
+				$('.current_block').hide();
 				$('#current_error').show();
 			}
+			
+			$("#skip_count").html(''+data['skips']);
 			
 			wait();
         }
@@ -91,6 +93,7 @@
 		function init() {
 	        $('form.uniForm').uniform();
 	        $(".errorField").addClass("ui-state-error ui-corner-all");
+	        $("#vote_skip").button();
 	        $("#vote_skip").click(function(e) {
 	            e.preventDefault();
 				send_skip_request();
@@ -101,7 +104,7 @@
 	        
 	        $('#playlist_table').hide();
 	        $('#old_table').hide();
-	        $('#current_title').hide();
+	        $('.current_block').hide();
 	        
 	        get_data();
 		}
@@ -113,10 +116,13 @@
 {{ block.super }}
 
     <h2>{% trans "Playback management" %}</h2>
-    <p id="current_title">
-    	{% trans "Currently playing" %}
-    	"<span id="currentcontent">{{ title }}</span>"
-    	(<a href="" id="vote_skip">{% trans "Vote for skipping this video" %}</a>)
+    <p class="current_block">
+    	{% trans "Now playing" %}
+    	"<span id="currentcontent">{{ title }}</span>".
+   	</p>
+   	<p class="current_block">
+   		<span id="skip_count">0</span>/3 henkilöä on äänestänyt videon ohittamista.<br /><br />
+    	<a href="" id="vote_skip">{% trans "Vote for skipping this video" %}</a>
     </p>
     <p id="current_error">
     	{% trans "There is no video playing currently." %}
