@@ -85,10 +85,7 @@ def index(request):
     if request.method == "POST":
         addform = AddForm(request.POST, session_key=key)
         if addform.is_valid():
-            d = addform.save(commit=False)
-            d.description = addform.tmp_desc
-            d.key = key
-            d.save()
+            addform.save()
             return HttpResponseRedirect(reverse('manager:index'))
     else:
         addform = AddForm(session_key=key)

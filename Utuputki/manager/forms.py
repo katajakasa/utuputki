@@ -109,6 +109,14 @@ class AddForm(forms.ModelForm):
         # All done. Return valid url
         return r_url
         
+    def save(self, commit=True):
+        instance = super(AddForm, self).save(commit=False)
+        instance.description = self.tmp_desc
+        instance.key = self.session_key
+        if commit:
+            instance.save()
+        return instance
+        
     class Meta:
         model = Video
         fields = ('youtube_url',)
