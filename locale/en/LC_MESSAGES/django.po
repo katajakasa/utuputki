@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-09 22:50+0300\n"
+"POT-Creation-Date: 2014-05-10 23:27+0300\n"
 "PO-Revision-Date: 2014-02-10 01:02+0200\n"
 "Last-Translator:   <admin@admin.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -58,13 +58,13 @@ msgstr ""
 msgid "Unavailable"
 msgstr ""
 
-#: Utuputki/manager/forms.py:107
+#: Utuputki/manager/forms.py:113
 msgid "Video does not exist!"
 msgstr ""
 
 #: Utuputki/manager/models.py:8
-#: Utuputki/manager/templates/manager/index.html:142
-#: Utuputki/manager/templates/manager/index.html:162
+#: Utuputki/manager/templates/manager/index.html:161
+#: Utuputki/manager/templates/manager/index.html:181
 msgid "Description"
 msgstr ""
 
@@ -80,8 +80,8 @@ msgstr ""
 msgid "URL to a youtube video"
 msgstr ""
 
-#: Utuputki/manager/models.py:10 Utuputki/manager/models.py:23
-msgid "Sender IP"
+#: Utuputki/manager/models.py:10 Utuputki/manager/models.py:24
+msgid "Sender Key"
 msgstr ""
 
 #: Utuputki/manager/models.py:11
@@ -92,81 +92,82 @@ msgstr ""
 msgid "Playing"
 msgstr ""
 
-#: Utuputki/manager/models.py:18 Utuputki/manager/models.py:22
+#: Utuputki/manager/models.py:13
+#: Utuputki/manager/templates/manager/index.html:163
+#: Utuputki/manager/templates/manager/index.html:183
+msgid "Duration"
+msgstr ""
+
+#: Utuputki/manager/models.py:19 Utuputki/manager/models.py:23
 msgid "Video"
 msgstr ""
 
-#: Utuputki/manager/models.py:19
+#: Utuputki/manager/models.py:20
 msgid "Videos"
 msgstr ""
 
-#: Utuputki/manager/models.py:29
+#: Utuputki/manager/models.py:30
 msgid "Skip request"
 msgstr ""
 
-#: Utuputki/manager/models.py:30
+#: Utuputki/manager/models.py:31
 msgid "Skip requests"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:118
+#: Utuputki/manager/templates/manager/index.html:137
 msgid "Playback management"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:120
+#: Utuputki/manager/templates/manager/index.html:139
 msgid "Now playing"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:124
+#: Utuputki/manager/templates/manager/index.html:143
 msgid "users have requested skipping this video"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:125
+#: Utuputki/manager/templates/manager/index.html:144
 msgid "Vote for skipping this video"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:128
+#: Utuputki/manager/templates/manager/index.html:147
 msgid "There is no video playing currently."
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:131
+#: Utuputki/manager/templates/manager/index.html:150
 msgid "Playlist"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:141
-#: Utuputki/manager/templates/manager/index.html:161
+#: Utuputki/manager/templates/manager/index.html:160
+#: Utuputki/manager/templates/manager/index.html:180
 msgid "ID"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:143
-#: Utuputki/manager/templates/manager/index.html:163
+#: Utuputki/manager/templates/manager/index.html:162
+#: Utuputki/manager/templates/manager/index.html:182
 msgid "URL"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:144
-#: Utuputki/manager/templates/manager/index.html:164
-msgid "IP Address"
-msgstr ""
-
-#: Utuputki/manager/templates/manager/index.html:151
+#: Utuputki/manager/templates/manager/index.html:170
 msgid "No entries in playlist"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:153
+#: Utuputki/manager/templates/manager/index.html:172
 msgid "Playlist history"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:155
+#: Utuputki/manager/templates/manager/index.html:174
 msgid "Download playback history in CSV format"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:171
+#: Utuputki/manager/templates/manager/index.html:190
 msgid "No old entries"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:173
+#: Utuputki/manager/templates/manager/index.html:192
 msgid "Language"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:187
+#: Utuputki/manager/templates/manager/index.html:206
 msgid "Select"
 msgstr ""
