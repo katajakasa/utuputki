@@ -42,6 +42,12 @@
         	get_data();
         }
         
+        function pretty_duration(secs) {
+        	var minutes = Math.floor(secs / 60);
+        	var seconds = Math.floor(secs % 60);
+        	return ''+minutes+':'+seconds;
+        }
+        
         function add_list_elements(list, data) {
         	var html = '';
         	$.each(data, function(index, entry) {
@@ -49,6 +55,7 @@
         			<td>'+entry['id']+'</td> \
         			<td>'+entry['description']+'</td> \
         			<td><a href="'+entry['youtube_url']+'">'+entry['youtube_url']+'</a></td> \
+        			<td>'+pretty_duration(entry['duration'])+'</td> \
         		</tr>';
         	});
         	list.html(html);
@@ -151,6 +158,7 @@
                     <th>{% trans "ID" %}</th>
                     <th>{% trans "Description" %}</th>
                     <th>{% trans "URL" %}</th>
+                    <th>{% trans "Duration" %}</th>
                 </tr>
             </thead>
             <tbody id="playlistcontent">
@@ -170,6 +178,7 @@
                     <th>{% trans "ID" %}</th>
                     <th>{% trans "Description" %}</th>
                     <th>{% trans "URL" %}</th>
+                    <th>{% trans "Duration" %}</th>
                 </tr>
             </thead>
             <tbody id="oldcontent">

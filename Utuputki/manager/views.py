@@ -41,7 +41,8 @@ def get_data(request):
         outlist['current'] = {
             'id': current.id,
             'description': current.description,
-            'youtube_url': current.youtube_url
+            'youtube_url': current.youtube_url,
+            'duration': current.duration,
         }
         skipreqs = SkipRequest.objects.filter(event=current)
         outlist['skips'] = len(skipreqs)
@@ -54,6 +55,7 @@ def get_data(request):
             'id': v.id,
             'description': v.description,
             'youtube_url': v.youtube_url,
+            'duration': v.duration,
         }
         outlist['old'].append(o)
     
@@ -63,6 +65,7 @@ def get_data(request):
             'id': v.id,
             'description': v.description,
             'youtube_url': v.youtube_url,
+            'duration': v.duration,
         }
         outlist['playlist'].append(o)
 

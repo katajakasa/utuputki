@@ -10,6 +10,7 @@ class Video(models.Model):
     key = models.CharField(_('Sender Key'), max_length=64, null=True, blank=True)
     deleted = models.IntegerField(_('Deleted'), default=False)
     playing = models.BooleanField(_('Playing'), default=False)
+    duration = models.IntegerField(_('Duration'), default=0)
 
     def __unicode__(self):
         return self.description

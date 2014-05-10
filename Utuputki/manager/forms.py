@@ -103,6 +103,12 @@ class AddForm(forms.ModelForm):
                 self.tmp_desc = video_info['data']['title']
             else:
                 self.tmp_desc = _('Unavailable')
+                
+            # Get duration
+            if u'duration' in video_info['data']:
+                self.duration = video_info['data']['duration']
+            else:
+                self.duration = 0
         else:
             raise forms.ValidationError(_('Video does not exist!'))
             
@@ -113,6 +119,7 @@ class AddForm(forms.ModelForm):
         instance = super(AddForm, self).save(commit=False)
         instance.description = self.tmp_desc
         instance.key = self.session_key
+        instance.duration = self.duration
         if commit:
             instance.save()
         return instance
