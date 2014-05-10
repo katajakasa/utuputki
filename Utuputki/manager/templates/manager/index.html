@@ -45,7 +45,9 @@
         function pretty_duration(secs) {
         	var minutes = Math.floor(secs / 60);
         	var seconds = Math.floor(secs % 60);
-        	return ''+minutes+':'+seconds;
+        	var min_str = (minutes < 10) ? '0'+minutes : ''+minutes;
+        	var sec_str = (seconds < 10) ? '0'+seconds : ''+seconds;
+        	return min_str+':'+sec_str;
         }
         
         function add_list_elements(list, data) {
