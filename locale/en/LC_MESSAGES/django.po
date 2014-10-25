@@ -2,13 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-10 23:27+0300\n"
+"POT-Creation-Date: 2014-10-25 15:13+0000\n"
 "PO-Revision-Date: 2014-02-10 01:02+0200\n"
 "Last-Translator:   <admin@admin.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,156 +18,156 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Translated-Using: django-rosetta 0.7.3\n"
 
-#: Utuputki/settings.py:47
+#: .\Utuputki\settings.py:47
 msgid "Finnish"
 msgstr ""
 
-#: Utuputki/settings.py:48
+#: .\Utuputki\settings.py:48
 msgid "English"
 msgstr ""
 
-#: Utuputki/manager/forms.py:20
+#: .\Utuputki\manager\forms.py:20
 msgid "Add a new video to the playlist"
 msgstr ""
 
-#: Utuputki/manager/forms.py:24
+#: .\Utuputki\manager\forms.py:24
 msgid "Add"
 msgstr ""
 
-#: Utuputki/manager/forms.py:71
+#: .\Utuputki\manager\forms.py:71
 msgid "Given URL is not a valid Youtube video URL."
 msgstr ""
 
-#: Utuputki/manager/forms.py:79
+#: .\Utuputki\manager\forms.py:79
 msgid "Given video URL is already once in the playlist with this IP."
 msgstr ""
 
-#: Utuputki/manager/forms.py:88
+#: .\Utuputki\manager\forms.py:88
 msgid "Video is restricted, and cannot be loaded."
 msgstr ""
 
-#: Utuputki/manager/forms.py:93
+#: .\Utuputki\manager\forms.py:93
 msgid "Embedding this video is not allowed, and thus cannot be loaded."
 msgstr ""
 
-#: Utuputki/manager/forms.py:99
-msgid "Video is too long. Maximum length for the video is 15 minutes."
+#: .\Utuputki\manager\forms.py:99
+msgid "Video is too long. Maximum length for the video is 3 hours."
 msgstr ""
 
-#: Utuputki/manager/forms.py:105
+#: .\Utuputki\manager\forms.py:105
 msgid "Unavailable"
 msgstr ""
 
-#: Utuputki/manager/forms.py:113
+#: .\Utuputki\manager\forms.py:113
 msgid "Video does not exist!"
 msgstr ""
 
-#: Utuputki/manager/models.py:8
-#: Utuputki/manager/templates/manager/index.html:161
-#: Utuputki/manager/templates/manager/index.html:181
+#: .\Utuputki\manager\models.py:8
+#: .\Utuputki\manager\templates\manager\index.html:161
+#: .\Utuputki\manager\templates\manager\index.html:181
 msgid "Description"
 msgstr ""
 
-#: Utuputki/manager/models.py:8
+#: .\Utuputki\manager\models.py:8
 msgid "Description text for the video"
 msgstr ""
 
-#: Utuputki/manager/models.py:9
+#: .\Utuputki\manager\models.py:9
 msgid "Youtube URL"
 msgstr ""
 
-#: Utuputki/manager/models.py:9
+#: .\Utuputki\manager\models.py:9
 msgid "URL to a youtube video"
 msgstr ""
 
-#: Utuputki/manager/models.py:10 Utuputki/manager/models.py:24
+#: .\Utuputki\manager\models.py:10 .\Utuputki\manager\models.py:24
 msgid "Sender Key"
 msgstr ""
 
-#: Utuputki/manager/models.py:11
+#: .\Utuputki\manager\models.py:11
 msgid "Deleted"
 msgstr ""
 
-#: Utuputki/manager/models.py:12
+#: .\Utuputki\manager\models.py:12
 msgid "Playing"
 msgstr ""
 
-#: Utuputki/manager/models.py:13
-#: Utuputki/manager/templates/manager/index.html:163
-#: Utuputki/manager/templates/manager/index.html:183
+#: .\Utuputki\manager\models.py:13
+#: .\Utuputki\manager\templates\manager\index.html:163
+#: .\Utuputki\manager\templates\manager\index.html:183
 msgid "Duration"
 msgstr ""
 
-#: Utuputki/manager/models.py:19 Utuputki/manager/models.py:23
+#: .\Utuputki\manager\models.py:19 .\Utuputki\manager\models.py:23
 msgid "Video"
 msgstr ""
 
-#: Utuputki/manager/models.py:20
+#: .\Utuputki\manager\models.py:20
 msgid "Videos"
 msgstr ""
 
-#: Utuputki/manager/models.py:30
+#: .\Utuputki\manager\models.py:30
 msgid "Skip request"
 msgstr ""
 
-#: Utuputki/manager/models.py:31
+#: .\Utuputki\manager\models.py:31
 msgid "Skip requests"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:137
+#: .\Utuputki\manager\templates\manager\index.html:137
 msgid "Playback management"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:139
+#: .\Utuputki\manager\templates\manager\index.html:139
 msgid "Now playing"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:143
+#: .\Utuputki\manager\templates\manager\index.html:143
 msgid "users have requested skipping this video"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:144
+#: .\Utuputki\manager\templates\manager\index.html:144
 msgid "Vote for skipping this video"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:147
+#: .\Utuputki\manager\templates\manager\index.html:147
 msgid "There is no video playing currently."
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:150
+#: .\Utuputki\manager\templates\manager\index.html:150
 msgid "Playlist"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:160
-#: Utuputki/manager/templates/manager/index.html:180
+#: .\Utuputki\manager\templates\manager\index.html:160
+#: .\Utuputki\manager\templates\manager\index.html:180
 msgid "ID"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:162
-#: Utuputki/manager/templates/manager/index.html:182
+#: .\Utuputki\manager\templates\manager\index.html:162
+#: .\Utuputki\manager\templates\manager\index.html:182
 msgid "URL"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:170
+#: .\Utuputki\manager\templates\manager\index.html:170
 msgid "No entries in playlist"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:172
+#: .\Utuputki\manager\templates\manager\index.html:172
 msgid "Playlist history"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:174
+#: .\Utuputki\manager\templates\manager\index.html:174
 msgid "Download playback history in CSV format"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:190
+#: .\Utuputki\manager\templates\manager\index.html:190
 msgid "No old entries"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:192
+#: .\Utuputki\manager\templates\manager\index.html:192
 msgid "Language"
 msgstr ""
 
-#: Utuputki/manager/templates/manager/index.html:206
+#: .\Utuputki\manager\templates\manager\index.html:206
 msgid "Select"
 msgstr ""

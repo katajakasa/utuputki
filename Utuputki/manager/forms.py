@@ -95,8 +95,8 @@ class AddForm(forms.ModelForm):
             # Make sure the video is not too long
             if u'duration' in video_info['data']:
                 duration = int(video_info['data']['duration'])
-                if duration > 900:
-                    raise forms.ValidationError(_('Video is too long. Maximum length for the video is 15 minutes.'))
+                if duration > 10800:
+                    raise forms.ValidationError(_('Video is too long. Maximum length for the video is 3 hours.'))
             
             # Set temp description
             if u'title' in video_info['data']:
