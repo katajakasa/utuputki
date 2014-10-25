@@ -12,17 +12,17 @@
 
 {% block jquery %}
 {{ block.super }}
-		var data_timer = null;
-		
-		function clear_timer() {
+        var data_timer = null;
+        
+        function clear_timer() {
             if(data_timer != null) {
                 window.clearTimeout(data_timer);
             }
             data_timer = null;
-		}
-		
+        }
+        
         function wait() {
-			clear_timer();
+            clear_timer();
             data_timer = setTimeout($.proxy(get_data, this), 3000);
         }
 
@@ -38,60 +38,60 @@
         }
         
         function force_update() {
-        	clear_timer();
-        	get_data();
+            clear_timer();
+            get_data();
         }
         
         function pretty_duration(secs) {
-        	var minutes = Math.floor(secs / 60);
-        	var seconds = Math.floor(secs % 60);
-        	var min_str = (minutes < 10) ? '0'+minutes : ''+minutes;
-        	var sec_str = (seconds < 10) ? '0'+seconds : ''+seconds;
-        	return min_str+':'+sec_str;
+            var minutes = Math.floor(secs / 60);
+            var seconds = Math.floor(secs % 60);
+            var min_str = (minutes < 10) ? '0'+minutes : ''+minutes;
+            var sec_str = (seconds < 10) ? '0'+seconds : ''+seconds;
+            return min_str+':'+sec_str;
         }
         
         function add_list_elements(list, data) {
-        	var html = '';
-        	$.each(data, function(index, entry) {
-        		html += '<tr> \
-        			<td>'+entry['id']+'</td> \
-        			<td>'+entry['description']+'</td> \
-        			<td><a href="'+entry['youtube_url']+'">'+entry['youtube_url']+'</a></td> \
-        			<td>'+pretty_duration(entry['duration'])+'</td> \
-        		</tr>';
-        	});
-        	list.html(html);
+            var html = '';
+            $.each(data, function(index, entry) {
+                html += '<tr> \
+                    <td>'+entry['id']+'</td> \
+                    <td>'+entry['description']+'</td> \
+                    <td><a href="'+entry['youtube_url']+'">'+entry['youtube_url']+'</a></td> \
+                    <td>'+pretty_duration(entry['duration'])+'</td> \
+                </tr>';
+            });
+            list.html(html);
         }
         
         function toggle_data_error(data_id, errortext_id, data) {
-        	if(data.length > 0) {
-        		data_id.show();
-        		errortext_id.hide();
-        	} else {
-        		data_id.hide();
-        		errortext_id.show();
-        	}
+            if(data.length > 0) {
+                data_id.show();
+                errortext_id.hide();
+            } else {
+                data_id.hide();
+                errortext_id.show();
+            }
         }
         
         function fetch_success(data) {
-			add_list_elements($('#playlistcontent'), data['playlist']);
-			add_list_elements($('#oldcontent'), data['old']);
-			toggle_data_error($('#playlist_table'), $('#playlist_text'), data['playlist']);
-			toggle_data_error($('#old_table'), $('#old_text'), data['old']);
-			
-			if(data['current']) {
-				$('#currentcontent').html(data['current']['description']);
-				$('.current_block').show();
-				$('#current_error').hide();
-			} else {
-				$('#currentcontent').html('');
-				$('.current_block').hide();
-				$('#current_error').show();
-			}
-			
-			$("#skip_count").html(''+data['skips']);
-			
-			wait();
+            add_list_elements($('#playlistcontent'), data['playlist']);
+            add_list_elements($('#oldcontent'), data['old']);
+            toggle_data_error($('#playlist_table'), $('#playlist_text'), data['playlist']);
+            toggle_data_error($('#old_table'), $('#old_text'), data['old']);
+            
+            if(data['current']) {
+                $('#currentcontent').html(data['current']['description']);
+                $('.current_block').show();
+                $('#current_error').hide();
+            } else {
+                $('#currentcontent').html('');
+                $('.current_block').hide();
+                $('#current_error').show();
+            }
+            
+            $("#skip_count").html(''+data['skips']);
+            
+            wait();
         }
         
         function fetch_failure() {
@@ -100,35 +100,35 @@
         }
         
         function send_skip_request() {
-	        $.ajax({ 
-	            url: '{% url 'manager:reqskip' %}', 
-	            dataType: 'json', 
-	            timeout: 5000,
-	            success: $.proxy(force_update, this),
-	            type: 'GET',
-	        });
+            $.ajax({ 
+                url: '{% url 'manager:reqskip' %}', 
+                dataType: 'json', 
+                timeout: 5000,
+                success: $.proxy(force_update, this),
+                type: 'GET',
+            });
         }
 
-		function init() {
-	        $('form.uniForm').uniform();
-	        $(".errorField").addClass("ui-state-error ui-corner-all");
-	        $("#vote_skip").button();
-	        $("#vote_skip").click(function(e) {
-	            e.preventDefault();
-				send_skip_request();
-	        });
-	        $('.urlinput').addClass('textInput');
-	        $('input[type=submit]').button();
-	        $('input[type=reset]').button();
-	        
-	        $('#playlist_table').hide();
-	        $('#old_table').hide();
-	        $('.current_block').hide();
-	        
-	        get_data();
-		}
+        function init() {
+            $('form.uniForm').uniform();
+            $(".errorField").addClass("ui-state-error ui-corner-all");
+            $("#vote_skip").button();
+            $("#vote_skip").click(function(e) {
+                e.preventDefault();
+                send_skip_request();
+            });
+            $('.urlinput').addClass('textInput');
+            $('input[type=submit]').button();
+            $('input[type=reset]').button();
+            
+            $('#playlist_table').hide();
+            $('#old_table').hide();
+            $('.current_block').hide();
+            
+            get_data();
+        }
 
-		init();
+        init();
 {% endblock %}
 
 {% block content %}
@@ -136,15 +136,15 @@
 
     <h2>{% trans "Playback management" %}</h2>
     <p class="current_block">
-    	{% trans "Now playing" %}
-    	"<span id="currentcontent">{{ title }}</span>".
-   	</p>
-   	<p class="current_block">
-   		<span id="skip_count">0</span>/3 {% trans "users have requested skipping this video" %}.<br /><br />
-    	<a href="" id="vote_skip">{% trans "Vote for skipping this video" %}</a>
+        {% trans "Now playing" %}
+        "<span id="currentcontent">{{ title }}</span>".
+       </p>
+       <p class="current_block">
+           <span id="skip_count">0</span>/3 {% trans "users have requested skipping this video" %}.<br /><br />
+        <a href="" id="vote_skip">{% trans "Vote for skipping this video" %}</a>
     </p>
     <p id="current_error">
-    	{% trans "There is no video playing currently." %}
+        {% trans "There is no video playing currently." %}
     </p>
 
     <h2>{% trans "Playlist" %}</h2>
