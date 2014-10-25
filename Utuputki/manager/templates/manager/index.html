@@ -45,19 +45,25 @@
         function pretty_duration(secs) {
             var minutes = Math.floor(secs / 60);
             var seconds = Math.floor(secs % 60);
+            var hours = Math.floor(minutes / 60);
+            minutes = Math.floor(minutes % 60);
+            var hour_str = (hours < 10) ? '0'+hours : ''+hours;
             var min_str = (minutes < 10) ? '0'+minutes : ''+minutes;
             var sec_str = (seconds < 10) ? '0'+seconds : ''+seconds;
-            return min_str+':'+sec_str;
+            return hour_str+':'+min_str+':'+sec_str;
         }
         
         function add_list_elements(list, data) {
             var html = '';
+            var total_count = 0;
             $.each(data, function(index, entry) {
+                total_count += entry['duration'];
                 html += '<tr> \
                     <td>'+entry['id']+'</td> \
                     <td>'+entry['description']+'</td> \
                     <td><a href="'+entry['youtube_url']+'">'+entry['youtube_url']+'</a></td> \
                     <td>'+pretty_duration(entry['duration'])+'</td> \
+                    <td>'+pretty_duration(total_count)+'</td> \
                 </tr>';
             });
             list.html(html);
@@ -81,6 +87,7 @@
             
             if(data['current']) {
                 $('#currentcontent').html(data['current']['description']);
+                $('#currentduration').html(pretty_duration(data['current']['duration']));
                 $('.current_block').show();
                 $('#current_error').hide();
             } else {
@@ -137,7 +144,7 @@
     <h2>{% trans "Playback management" %}</h2>
     <p class="current_block">
         {% trans "Now playing" %}
-        "<span id="currentcontent">{{ title }}</span>".
+        "<span id="currentcontent"></span>" (<span id="currentduration"></span>).
        </p>
        <p class="current_block">
            <span id="skip_count">0</span>/3 {% trans "users have requested skipping this video" %}.<br /><br />
@@ -161,6 +168,7 @@
                     <th>{% trans "Description" %}</th>
                     <th>{% trans "URL" %}</th>
                     <th>{% trans "Duration" %}</th>
+                    <th>{% trans "Total" %}</th>
                 </tr>
             </thead>
             <tbody id="playlistcontent">
@@ -181,6 +189,7 @@
                     <th>{% trans "Description" %}</th>
                     <th>{% trans "URL" %}</th>
                     <th>{% trans "Duration" %}</th>
+                    <th>{% trans "Total" %}</th>
                 </tr>
             </thead>
             <tbody id="oldcontent">
