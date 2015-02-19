@@ -15,15 +15,18 @@ def request_skip(request):
     except Video.DoesNotExist:
         return JSONResponse({'error': 1})
     
+    # Mark down skip request.
+    # No session key => You shall not pass!
     key = request.session.session_key
-    try:
-        SkipRequest.objects.get(key=key,event=current)
-    except SkipRequest.DoesNotExist:
-        req = SkipRequest()
-        req.key = key
-        req.event = current
-        req.save()
-        return JSONResponse({'error': 0})
+    if key:
+        try:
+            SkipRequest.objects.get(key=key,event=current)
+        except SkipRequest.DoesNotExist:
+            req = SkipRequest()
+            req.key = key
+            req.event = current
+            req.save()
+            return JSONResponse({'error': 0})
     
     return JSONResponse({'error': 2})
 
