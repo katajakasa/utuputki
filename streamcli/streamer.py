@@ -10,15 +10,27 @@ except:
 # Others
 import os
 import sys
+import gi
 import livestreamer
 import json
 import httplib
 import time
 import signal
+from player import LivestreamerPlayer
+from gi.repository import GObject as gobject, Gst as gst
 
 class NetException(Exception):
     """ Exception for interwebs errors """
     pass
+
+# Globals nom
+is_playing = False
+is_running = True
+current_id = -1
+current_url = ""
+session = livestreamer.Livestreamer()
+current_stream = None
+player = None
 
 def get_json(path):
     """ Fetches JSON response from API """
@@ -38,44 +50,53 @@ def req_skips(id):
     """ Fetches skipping information from API """
     return get_json(config.UTUPUTKI_API_PATH + '/checkskip/?video_id' + str(id))
 
-# Globals nom
-is_playing = False
-is_running = True
-current_id = -1
-current_url = ""
-session = livestreamer.Livestreamer()
-current_stream = None
-
 def sigint_handler(signal, frame):
     is_running = False
 
-signal.signal(signal.SIGINT, sigint_handler)
+def init():
+    gi.require_version("Gst", "1.0")
+    gobject.threads_init()
+    gst.init(None)
 
 # Do stuff.
-while is_running:
-    if is_playing:
-        skips = req_skips(current_id)
-        if 'skip' in skips and  skips['skip'] == 1:
-            print("Skipping video {0} / '{1}'".format(current_id, current_url))
-    else:
-        video = req_video()
-        if video['state'] == 1:
-            current_id = video['id']
-            current_url = video['url']
-            
-            print("Switching to video {0} / '{1}'".format(current_id, current_url))
-            
-            try:
-                streams = session.streams(video['url'])
-            except NoPluginError:
-                print("Livestreamer is unable to handle video {0} / '{1}'".format(current_id, current_url))
-            except PluginError as err:
-                print("Livestreamer plugin error: {0}".format(err))
+def main():
+    while is_running:
+        is_playing = (player and player.is_playing)
+        if is_playing:
+            skips = req_skips(current_id)
+            if 'skip' in skips and  skips['skip'] == 1:
+                print("Skipping video {0} / '{1}'".format(current_id, current_url))
+        else:
+            video = req_video()
+            if 'state' in video and video['state'] == 1:
+                current_id = video['id']
+                current_url = video['url']
                 
-            current_stream = streams[config.QUALITY]
-            is_playing = True
+                print("Switching to video {0} / '{1}'".format(current_id, current_url))
+                
+                try:
+                    streams = session.streams(video['url'])
+                except NoPluginError:
+                    print("Livestreamer is unable to handle video {0} / '{1}'".format(current_id, current_url))
+                except PluginError as err:
+                    print("Livestreamer plugin error: {0}".format(err))
+                
+                # Make sure there are streams available
+                if not streams:
+                    print("Livestreamer found no streams {0} / '{1}'".format(current_id, current_url))
+                
+                # Pick the stream we want
+                current_stream = streams[config.QUALITY]
+                if not current_stream:
+                    print("There was no stream of quality '{0}' available on {1} / {2}".format(config.QUALITY, current_id, current_url))
+                
+                player = LivestreamerPlayer()
+        
+        time.sleep(0.1)
     
-    time.sleep(0.1)
-
-print("SIGINT, quitting ...")
-exit(0)
+if __name__ == "__main__":
+    signal.signal(signal.SIGINT, sigint_handler)
+    init()
+    main()
+    print("Quitting ...")
+    exit(0)
