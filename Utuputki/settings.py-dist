@@ -117,7 +117,6 @@ INSTALLED_APPS = (
     'Utuputki.manager',
     'Utuputki.player',
     'crispy_forms',
-    'south',
     'rosetta',
 )
 

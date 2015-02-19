@@ -8,18 +8,17 @@ The whole thing consists of two apps: the player which is used on screen compute
 
 Dependencies
 ------------
-Requires django 1.6, django-crispy-forms, django-rosetta and south.
+Requires django 1.7, django-crispy-forms and django-rosetta.
 
-Quick installation: `pip install django django-crispy-forms django-rosetta south`
+Quick installation: `pip install django django-crispy-forms django-rosetta`
 
 Installation
 ------------
 1. Install dependencies
 2. Copy `Utuputki/settings.py-dist` to `Utuputki/settings.py` and modify as necessary.
 3. Do syncdb `./manage.py syncdb`
-4. Do migration `./manage.py migrate`
-5. If utuputki is not run in debug mode, you need to do collectstatic `./manage.py collectstatic`
-6. Start server. If you're running the server in testing environment or just dont care, do `./manage.py runserver`
+4. If utuputki is not run in debug mode, you need to do collectstatic `./manage.py collectstatic`
+5. Start server. If you're running the server in testing environment or just dont care, do `./manage.py runserver`
 
 Translating
 -----------
