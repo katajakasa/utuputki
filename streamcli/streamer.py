@@ -25,12 +25,6 @@ class NetException(Exception):
 
 # Globals nom
 is_playing = False
-is_running = True
-current_id = -1
-current_url = ""
-session = livestreamer.Livestreamer()
-current_stream = None
-player = None
 
 def get_json(path):
     """ Fetches JSON response from API """
@@ -53,19 +47,30 @@ def req_skips(id):
 def sigint_handler(signal, frame):
     is_running = False
 
-def init():
+# Do stuff.
+def main():
+    # Init
     gi.require_version("Gst", "1.0")
     gobject.threads_init()
     gst.init(None)
-
-# Do stuff.
-def main():
+    
+    # Vars
+    is_running = True
+    current_id = -1
+    current_url = ""
+    session = livestreamer.Livestreamer()
+    current_stream = None
+    player = LivestreamerPlayer()
+    
+    # Just run until CTRL+C
     while is_running:
         is_playing = (player and player.is_playing)
         if is_playing:
             skips = req_skips(current_id)
             if 'skip' in skips and  skips['skip'] == 1:
                 print("Skipping video {0} / '{1}'".format(current_id, current_url))
+                if player:
+                    player.stop()
         else:
             video = req_video()
             if 'state' in video and video['state'] == 1:
@@ -90,13 +95,12 @@ def main():
                 if not current_stream:
                     print("There was no stream of quality '{0}' available on {1} / {2}".format(config.QUALITY, current_id, current_url))
                 
-                player = LivestreamerPlayer()
+                player.play(current_stream)
         
         time.sleep(0.1)
     
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, sigint_handler)
-    init()
     main()
     print("Quitting ...")
     exit(0)

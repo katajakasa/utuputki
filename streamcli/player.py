@@ -42,16 +42,16 @@ class LivestreamerPlayer(object):
         try:
             self.fd = stream.open()
         except StreamError as err:
-            self.exit("Failed to open stream: {0}".format(err))
+            print("Failed to open stream: {0}".format(err))
+            return False
 
         # Start playback
         self.pipeline.set_state(gst.State.PLAYING)
         self.mainloop.run()
         self.playing = True
+        return True
 
     def on_source_setup(self, element, source):
-        # When this callback is called the appsrc expects
-        # us to feed it more data
         source.connect("need-data", self.on_source_need_data)
 
     def on_source_need_data(self, source, length):
@@ -59,7 +59,7 @@ class LivestreamerPlayer(object):
         try:
             data = self.fd.read(length)
         except IOError as err:
-            self.exit("Failed to read data from stream: {0}".format(err))
+            print("Failed to read data from stream: {0}".format(err))
 
         # If data is empty it's the end of stream
         if not data:
@@ -72,13 +72,12 @@ class LivestreamerPlayer(object):
         source.emit("push-buffer", buf)
 
     def on_eos(self, bus, msg):
-        # Stop playback on end of stream
         self.stop()
 
     def on_error(self, bus, msg):
-        # Print error message and exit on error
         error = msg.parse_error()[1]
-        self.exit(error)
+        print("Caught error {0}".format(error))
+        self.stop()
         
     def is_playing(self):
         return self.is_playing
