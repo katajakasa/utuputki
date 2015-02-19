@@ -78,6 +78,6 @@ class LivestreamerPlayer(object):
         error = msg.parse_error()[1]
         print("Caught error {0}".format(error))
         self.stop()
-        
+
     def is_playing(self):
-        return self.is_playing
+        return self.playing
