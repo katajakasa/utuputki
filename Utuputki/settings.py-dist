@@ -46,6 +46,8 @@ USE_TZ = True
 VIDEO_MAX_DURATION = 10800
 VIDEO_CHECK_DURATION = True
 VIDEO_CHECK_RESTRICTED = True
+ENABLE_ADMIN = True
+ENABLE_HTML_PLAYER = False
 
 # New test runner
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'

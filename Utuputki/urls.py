@@ -4,10 +4,6 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
 
-# Use admin panel, if debug mode is on
-if settings.DEBUG:
-    admin.autodiscover()
-
 # URLS
 urlpatterns = patterns('',
     url(r'^player/', include('Utuputki.player.urls', namespace="player")),
@@ -18,9 +14,14 @@ urlpatterns = patterns('',
 
 # Add admin panel link if debug mode is on
 # Serve media files through static.serve when running in debug mode
-if settings.DEBUG:
+if settings.ENABLE_ADMIN:
+    admin.autodiscover()
     urlpatterns += patterns('',
         url(r'^admin/', include(admin.site.urls)),
+    )
+
+if settings.DEBUG:
+    urlpatterns += patterns('',
         url(r'^rosetta/', include('rosetta.urls')),
         url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     )

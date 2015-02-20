@@ -2,11 +2,16 @@
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.http import Http404
 from Utuputki.common.responses import JSONResponse
 from Utuputki.manager.models import Video,SkipRequest
+from django.conf import settings
 
 def index(request):
-    return render_to_response("player/index.html", {}, context_instance=RequestContext(request))
+    if settings.ENABLE_HTML_PLAYER:
+        return render_to_response("player/index.html", {}, context_instance=RequestContext(request))
+    else:
+        raise Http404("Player is disabled.")
 
 def check_skip(request):
     # Make sure the request is ok
