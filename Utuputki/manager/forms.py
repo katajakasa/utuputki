@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from django.conf import settings
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Fieldset, ButtonHolder, HTML
@@ -82,21 +83,24 @@ class AddForm(forms.ModelForm):
         video_info = self.get_video_info(video_id)
         if u'data' in video_info:
             # Make sure video is not restricted
-            if u'status' in video_info['data']:
-                if u'value' in video_info['data']['status']:
-                    if video_info['data']['status']['value'] == 'restricted':
-                        raise forms.ValidationError(_('Video is restricted, and cannot be loaded.'))
+            if settings.VIDEO_CHECK_RESTRICTED:
+                if u'status' in video_info['data']:
+                    if u'value' in video_info['data']['status']:
+                        if video_info['data']['status']['value'] == 'restricted':
+                            raise forms.ValidationError(_('Video is restricted, and cannot be loaded.'))
                 
             # Make sure video is embeddable
-            if u'accessControl' in video_info['data']:    
-                if video_info['data']['accessControl']['embed'] != "allowed":
-                    raise forms.ValidationError(_('Embedding this video is not allowed, and thus cannot be loaded.'))
+            if settings.VIDEO_CHECK_RESTRICTED:
+                if u'accessControl' in video_info['data']:    
+                    if video_info['data']['accessControl']['embed'] != "allowed":
+                        raise forms.ValidationError(_('Embedding this video is not allowed, and thus cannot be loaded.'))
             
             # Make sure the video is not too long
-            if u'duration' in video_info['data']:
-                duration = int(video_info['data']['duration'])
-                if duration > 10800:
-                    raise forms.ValidationError(_('Video is too long. Maximum length for the video is 3 hours.'))
+            if settings.VIDEO_CHECK_DURATION:
+                if u'duration' in video_info['data']:
+                    duration = int(video_info['data']['duration'])
+                    if duration > settings.VIDEO_MAX_DURATION:
+                        raise forms.ValidationError(_('Video is too long. Maximum length for the video is 3 hours.'))
             
             # Set temp description
             if u'title' in video_info['data']:
