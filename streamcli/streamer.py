@@ -90,7 +90,6 @@ class Streamer(object):
                 # Make sure there are streams available
                 if not streams:
                     print("Livestreamer found no streams {0} / '{1}'".format(self.current_id, self.current_url))
-                else:
                     continue
 
                 # Pick the stream we want
