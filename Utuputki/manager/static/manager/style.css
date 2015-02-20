@@ -45,7 +45,7 @@ h2 {
 }
 
 #base {
-    width: 800px;
+    max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
     border: 1px solid #888;
@@ -68,7 +68,14 @@ table th {
 table td { 
     padding: 5px; 
     border: 1px solid #aaaaaa; 
-    background-color: #eeeeee; 
+}
+
+table tr {
+    background: #eee;
+}
+
+table tr:nth-child(even) {
+    background: #f6f6f6;
 }
 
 /* ---------- uniForm tweaks ---------- */
