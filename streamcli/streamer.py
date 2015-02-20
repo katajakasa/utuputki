@@ -41,7 +41,7 @@ class Streamer(object):
         glib.timeout_add(500, self.test_skip)
   
     def test_skip(self):
-        if not is_running:
+        if not self.is_running:
             return False
 
         # Check for skips
