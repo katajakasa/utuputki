@@ -60,6 +60,8 @@ class LivestreamerPlayer(object):
             data = self.fd.read(length)
         except IOError as err:
             print("Failed to read data from stream: {0}".format(err))
+            self.stop()
+            return
 
         # If data is empty it's the end of stream
         if not data:
@@ -73,6 +75,7 @@ class LivestreamerPlayer(object):
 
     def on_eos(self, bus, msg):
         self.stop()
+        print("End of stream!")
 
     def on_error(self, bus, msg):
         error = msg.parse_error()[1]
@@ -81,3 +84,4 @@ class LivestreamerPlayer(object):
 
     def is_playing(self):
         return self.playing
+

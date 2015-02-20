@@ -7,100 +7,95 @@ except:
     print "Config module not found! Make sure config.py exists!"
     exit()
 
+# Own
+from player import LivestreamerPlayer
+from query import req_video, req_skips, NetException
+
 # Others
 import os
 import sys
 import gi
-import livestreamer
-import json
-import httplib
 import time
 import signal
-from player import LivestreamerPlayer
-from gi.repository import GObject as gobject, Gst as gst
+from livestreamer import Livestreamer, NoPluginError, PluginError
+from gi.repository import GObject as gobject, Gst as gst, GLib as glib
 
-class NetException(Exception):
-    """ Exception for interwebs errors """
-    pass
-
-# Globals nom
+# Quit handler
 is_running = True
-
-def get_json(path):
-    """ Fetches JSON response from API """
-    conn = httplib.HTTPConnection(config.UTUPUTKI_API_DOMAIN)
-    conn.request("GET", path)
-    ret = conn.getresponse()
-    if ret.status == 200:
-        return json.loads(ret.read())
-    else:
-        raise NetException('Unable to fetch data from server')
-
-def req_video():
-    """ Fetches next video from API """
-    return get_json(config.UTUPUTKI_API_PATH + '/next/')
-
-def req_skips(id):
-    """ Fetches skipping information from API """
-    return get_json(config.UTUPUTKI_API_PATH + '/checkskip/?video_id' + str(id))
-
 def sigint_handler(signal, frame):
     is_running = False
 
 # Do stuff.
-def main():
-    # Init
-    gi.require_version("Gst", "1.0")
-    gobject.threads_init()
-    gst.init(None)
+class Streamer(object):
+    def __init__(self):
+        # Init stuff
+        gi.require_version("Gst", "1.0")
+        gobject.threads_init()
+        glib.threads_init()
+        gst.init(None)
 
-    # Vars
-    current_id = -1
-    current_url = ""
-    session = livestreamer.Livestreamer()
-    current_stream = None
-    player = LivestreamerPlayer()
+        # Vars
+        self.current_id = -1
+        self.current_url = ""
+        self.current_stream = None
+        self.session = Livestreamer()
+        self.player = LivestreamerPlayer()
 
-    # Just run until CTRL+C
-    while is_running:
-        if player.is_playing():
-            skips = req_skips(current_id)
-            if 'skip' in skips and  skips['skip'] == 1:
-                print("Skipping video {0} / '{1}'".format(current_id, current_url))
-                if player:
-                    player.stop()
-        else:
+        # Start skip watch
+        glib.timeout_add(500, self.test_skip)
+  
+    def test_skip(self):
+        if not is_running:
+            return False
+
+        # Check for skips
+        if self.current_id != -1:
+            skips = req_skips(self.current_id)
+            print skips
+            if 'skip' in skips and skips['skip']:
+                print("Skipping video {0} / '{1}'".format(self.current_id, self.current_url))
+                self.player.stop()
+                return False
+        return True
+
+    def main(self):
+        # Just run until CTRL+C
+        while is_running:
+            time.sleep(0.2)
             video = req_video()
-            print video
             if 'state' in video and video['state'] == 1:
-                current_id = video['id']
-                current_url = video['url']
+                self.current_id = video['id']
+                self.current_url = video['url']
 
-                print("Switching to video {0} / '{1}'".format(current_id, current_url))
+                print("Switching to video {0} / '{1}'".format(self.current_id, self.current_url))
 
                 try:
-                    streams = session.streams(video['url'])
+                    streams = self.session.streams(video['url'])
                 except NoPluginError:
-                    print("Livestreamer is unable to handle video {0} / '{1}'".format(current_id, current_url))
+                    print("Livestreamer is unable to handle video {0} / '{1}'".format(self.current_id, self.current_url))
                 except PluginError as err:
                     print("Livestreamer plugin error: {0}".format(err))
 
                 # Make sure there are streams available
                 if not streams:
-                    print("Livestreamer found no streams {0} / '{1}'".format(current_id, current_url))
+                    print("Livestreamer found no streams {0} / '{1}'".format(self.current_id, self.current_url))
 
                 # Pick the stream we want
-                current_stream = streams[config.QUALITY]
-                if not current_stream:
-                    print("There was no stream of quality '{0}' available on {1} / {2}".format(config.QUALITY, current_id, current_url))
+                self.current_stream = streams[config.QUALITY]
+                if not self.current_stream:
+                    print("There was no stream of quality '{0}' available on {1} / {2}".format(config.QUALITY, self.current_id, self.current_url))
 
-                if not player.play(current_stream):
-                    print("Failed to start playback.") 
+                # Play!
+                if not self.player.play(self.current_stream):
+                    print("Failed to start playback.")
 
-        time.sleep(0.1)
+    def close():
+        self.player.stop()
 
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, sigint_handler)
-    main()
+    streamer = Streamer()
+    streamer.main()
+    streamer.close()
     print("Quitting ...")
     exit(0)
