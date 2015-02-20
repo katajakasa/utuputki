@@ -86,7 +86,7 @@
             toggle_data_error($('#old_table'), $('#old_text'), data['old']);
             
             if(data['current']) {
-                $('#currentcontent').html(data['current']['description']);
+                $('#currentcontent').html('<a href="'+data['current']['youtube_url']+'">'+data['current']['description']+'</a>');
                 $('#currentduration').html(pretty_duration(data['current']['duration']));
                 $('.current_block').show();
                 $('#current_error').hide();
