@@ -47,7 +47,6 @@ class Streamer(object):
         # Check for skips
         if self.current_id != -1:
             skips = req_skips(self.current_id)
-            print skips
             if 'skip' in skips and skips['skip']:
                 print("Skipping video {0} / '{1}'".format(self.current_id, self.current_url))
                 self.player.stop()
