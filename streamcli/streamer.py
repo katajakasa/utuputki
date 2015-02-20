@@ -61,7 +61,7 @@ class Streamer(object):
             except NetException:
                 print("Connection timeout or something! Continuing ...")
 
-            if 'skip' in skips and skips['skip']:
+            if skips and 'skip' in skips and skips['skip']:
                 print("Skipping video {0} / '{1}'".format(self.current_id, self.current_url))
                 self.player.stop()
 
@@ -73,7 +73,7 @@ class Streamer(object):
             except NetException:
                 print("Connection timeout or something! Continuing ...")
     
-            if 'state' in video and video['state'] == 1:
+            if video and 'state' in video and video['state'] == 1:
                 self.current_id = video['id']
                 self.current_url = video['url']
 
