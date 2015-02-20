@@ -3,7 +3,7 @@
 import sys
 import gi
 
-from gi.repository import Gtk as gtk, GdkX11, GstVideo 
+from gi.repository import Gtk as gtk, GdkX11, GstVideo
 
 class VideoWindow(object):
     def __init__(self):
@@ -33,3 +33,4 @@ class VideoWindow(object):
     def on_window_destroy(self, nx):
         gtk.main_quit()
         self.open = False
+

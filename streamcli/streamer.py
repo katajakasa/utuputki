@@ -55,14 +55,24 @@ class Streamer(object):
     def test_skip(self):
         # Check for skips
         if self.current_id != -1 and self.player:
-            skips = req_skips(self.current_id)
+            skips = None
+            try:
+                skips = req_skips(self.current_id)
+            except NetException:
+                print("Connection timeout or something! Continuing ...")
+
             if 'skip' in skips and skips['skip']:
                 print("Skipping video {0} / '{1}'".format(self.current_id, self.current_url))
                 self.player.stop()
 
     def test_next(self):
         if not self.player or not self.player.is_playing():
-            video = req_video()
+            video = None
+            try:
+                video = req_video()
+            except NetException:
+                print("Connection timeout or something! Continuing ...")
+    
             if 'state' in video and video['state'] == 1:
                 self.current_id = video['id']
                 self.current_url = video['url']
