@@ -3,23 +3,24 @@
 import sys
 import gi
 
-from gi.repository import GObject as gobject, Gst as gst
+from gi.repository import GObject as gobject, Gst as gst, Gtk as gtk, GdkX11, GstVideo 
 from livestreamer import Livestreamer, StreamError
 
 class LivestreamerPlayer(object):
-    def __init__(self):
+    def __init__(self, window):
         self.fd = None
-        self.mainloop = gobject.MainLoop()
         self.playing = False
+        self.window = window
 
-        # This creates a playbin pipeline and using the appsrc source
-        # we can feed it our stream data
+        # The play binary pipeline
         self.pipeline = gst.ElementFactory.make("playbin", None)
         self.pipeline.set_property("uri", "appsrc://")
-
-        # When the playbin creates the appsrc source it will call
-        # this callback and allow us to configure it
         self.pipeline.connect("source-setup", self.on_source_setup)
+
+        # Sink
+        self.sink = gst.ElementFactory.make('xvimagesink','sink')
+        self.sink.set_property('force-aspect-ratio', True)
+        self.pipeline.set_property('video-sink', self.sink)
 
         # Creates a bus and set callbacks to receive errors
         self.bus = self.pipeline.get_bus()
@@ -27,15 +28,17 @@ class LivestreamerPlayer(object):
         self.bus.connect("message::eos", self.on_eos)
         self.bus.connect("message::error", self.on_error)
 
+        self.sink.set_window_handle(self.window.get_xid())  
+
     def stop(self):
         # Stop playback and exit mainloop
         self.pipeline.set_state(gst.State.NULL)
-        self.mainloop.quit()
-        self.playing = False
 
         # Close the stream
         if self.fd:
             self.fd.close()
+
+        self.playing = False
 
     def play(self, stream):
         # Attempt to open the stream
@@ -47,7 +50,6 @@ class LivestreamerPlayer(object):
 
         # Start playback
         self.pipeline.set_state(gst.State.PLAYING)
-        self.mainloop.run()
         self.playing = True
         return True
 
