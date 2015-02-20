@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
+from django.conf import settings
 from Utuputki.common.responses import JSONResponse
 
 from Utuputki.manager.models import Video,SkipRequest
@@ -98,5 +99,6 @@ def index(request):
     
     return render_to_response("manager/index.html", {
         'addform': addform,
+        'skip_count': settings.VIDEO_SKIP_COUNT,
     }, context_instance=RequestContext(request))
     
