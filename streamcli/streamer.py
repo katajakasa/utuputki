@@ -79,6 +79,7 @@ class Streamer(object):
 
                 print("Switching to video {0} / '{1}'".format(self.current_id, self.current_url))
 
+                streams = None
                 try:
                     streams = self.session.streams(self.current_url)
                 except NoPluginError:
@@ -89,11 +90,14 @@ class Streamer(object):
                 # Make sure there are streams available
                 if not streams:
                     print("Livestreamer found no streams {0} / '{1}'".format(self.current_id, self.current_url))
+                else:
+                    continue
 
                 # Pick the stream we want
                 self.current_stream = streams[config.QUALITY]
                 if not self.current_stream:
                     print("There was no stream of quality '{0}' available on {1} / {2}".format(config.QUALITY, self.current_id, self.current_url))
+                    continue
 
                 # Play!
                 self.player = LivestreamerPlayer(self.window)
