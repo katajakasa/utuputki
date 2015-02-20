@@ -20,11 +20,6 @@ import signal
 from livestreamer import Livestreamer, NoPluginError, PluginError
 from gi.repository import GObject as gobject, Gst as gst, GLib as glib
 
-# Quit handler
-is_running = True
-def sigint_handler(signal, frame):
-    is_running = False
-
 # Do stuff.
 class Streamer(object):
     def __init__(self):
@@ -35,6 +30,7 @@ class Streamer(object):
         gst.init(None)
 
         # Vars
+        self.is_running = True
         self.current_id = -1
         self.current_url = ""
         self.current_stream = None
@@ -55,12 +51,11 @@ class Streamer(object):
             if 'skip' in skips and skips['skip']:
                 print("Skipping video {0} / '{1}'".format(self.current_id, self.current_url))
                 self.player.stop()
-                return False
         return True
 
     def main(self):
         # Just run until CTRL+C
-        while is_running:
+        while self.is_running:
             time.sleep(0.2)
             video = req_video()
             if 'state' in video and video['state'] == 1:
@@ -89,13 +84,18 @@ class Streamer(object):
                 if not self.player.play(self.current_stream):
                     print("Failed to start playback.")
 
-    def close():
+    def close(self):
+        self.is_running = False
         self.player.stop()
 
 if __name__ == "__main__":
-    signal.signal(signal.SIGINT, sigint_handler)
     streamer = Streamer()
+
+    def sigint_handler(signal, frame):
+        streamer.close()
+    signal.signal(signal.SIGINT, sigint_handler)
+    
     streamer.main()
-    streamer.close()
+
     print("Quitting ...")
     exit(0)
