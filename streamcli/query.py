@@ -11,7 +11,12 @@ class NetException(Exception):
 def get_json(path):
     """ Fetches JSON response from API """
     conn = httplib.HTTPConnection(config.UTUPUTKI_API_DOMAIN)
-    conn.request("GET", path)
+    
+    try:
+        conn.request("GET", path)
+    except:
+        raise NetException("Connection timeout")
+    
     ret = conn.getresponse()
     if ret.status == 200:
         return json.loads(ret.read())
