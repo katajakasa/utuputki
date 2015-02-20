@@ -48,6 +48,7 @@ VIDEO_CHECK_DURATION = True
 VIDEO_CHECK_RESTRICTED = True
 ENABLE_ADMIN = True
 ENABLE_HTML_PLAYER = False
+VIDEO_SKIP_COUNT = 5
 
 # New test runner
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
