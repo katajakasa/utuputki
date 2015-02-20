@@ -104,6 +104,7 @@ class Streamer(object):
 
     def close(self):
         self.is_running = False
+        self.window.close()
         if self.player:
             self.player.stop()
 

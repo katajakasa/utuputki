@@ -27,10 +27,13 @@ class VideoWindow(object):
     def get_xid(self):
         return self.area.get_property('window').get_xid()
 
+    def close(self):
+        gtk.main_quit()
+        self.open = False
+
     def is_open(self):
         return self.open
 
     def on_window_destroy(self, nx):
-        gtk.main_quit()
-        self.open = False
+        self.close()
 
