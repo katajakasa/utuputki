@@ -11,6 +11,7 @@ import urlparse
 import httplib
 import json
 
+
 class AddForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.session_key = kwargs.pop('session_key', None)
@@ -32,7 +33,8 @@ class AddForm(forms.ModelForm):
         if len(pitems) > 0:
             return True
         return False
-        
+
+    '''
     def get_video_info(self, id):
         host = 'gdata.youtube.com'
         headers = {'Content-Type': 'application/json',}
@@ -41,6 +43,13 @@ class AddForm(forms.ModelForm):
         res = c.getresponse()
         message = json.loads(res.read())
         return message
+    '''
+
+    # Spoof the youtube data, since the api is no longer available
+    def get_video_info(self, id):
+        return {
+            'data': {}
+        }
         
     def clean_youtube_url(self):
         self.tmp_desc = u''

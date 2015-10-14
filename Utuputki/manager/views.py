@@ -10,6 +10,7 @@ from Utuputki.common.responses import JSONResponse
 from Utuputki.manager.models import Video,SkipRequest
 from Utuputki.manager.forms import AddForm
 
+
 def request_skip(request):
     try:
         current = Video.objects.get(playing=True)
@@ -30,6 +31,7 @@ def request_skip(request):
             return JSONResponse({'error': 0})
     
     return JSONResponse({'error': 2})
+
 
 def get_data(request):
     outlist = {
@@ -75,6 +77,7 @@ def get_data(request):
 
     return JSONResponse(outlist)
 
+
 def linklist(request):
     response = render_to_response("manager/list.txt", {
         'playlist': Video.objects.all().order_by('id'),
@@ -83,6 +86,7 @@ def linklist(request):
     response['Content-Type'] = 'text/csv'
     response['Content-Disposition'] = 'attachment; filename="linklist.csv"'
     return response
+
 
 def index(request):
     if not request.session.session_key or request.session.session_key == '':
