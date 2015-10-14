@@ -8,17 +8,36 @@ The whole thing consists of two apps: the player which is used on screen compute
 
 Dependencies
 ------------
-Requires django 1.7, django-crispy-forms and django-rosetta.
+Requirements:
+* django 1.8
+* django-crispy-forms
+* django-rosetta
 
-Quick installation: `pip install django django-crispy-forms django-rosetta`
+Quick installation: `pip install -r deploy/requirements.txt`
 
 Installation
 ------------
 1. Install dependencies
-2. Copy `Utuputki/settings.py-dist` to `Utuputki/settings.py` and modify as necessary.
-3. Do syncdb `./manage.py syncdb`
-4. If utuputki is not run in debug mode, you need to do collectstatic `./manage.py collectstatic`
-5. Start server. If you're running the server in testing environment or just dont care, do `./manage.py runserver`
+2. Copy `Utuputki/settings.py-dist` to `Utuputki/settings.py` and modify as necessary. Fill in at least  SECRET_KEY.
+3. Run database migrations `python manage.py migrate`
+4. Create a superuser `python manage.py createsuperuser`.
+5. Start server. If you're running the server in testing environment or just don't care, do `python manage.py runserver`.
+   Otherwise, please see django deployment guides.
+
+StreamCli
+---------
+
+Streamcli is a client for utuputki, which uses a GTK window to stream the videos. May work better than the HTML5 client.
+
+Additional requirements (python bindings + possible system libs):
+* PyGObject
+* GTK+ 3
+* GStreamer
+* Livestreamer (`pip install livestreamer`)
+* VLC player (in path)
+
+For PyGObject for windows python, see [PyGObjectWin32](http://sourceforge.net/projects/pygobjectwin32/). This should contain
+all the required packages.
 
 Translating
 -----------
