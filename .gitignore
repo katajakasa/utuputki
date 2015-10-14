@@ -2,7 +2,9 @@
 *.pyc
 *.pyo
 *.db
+.idea
 .project
 .pydevproject
 .settings
 Utuputki/settings.py
+streamcli/config.py
