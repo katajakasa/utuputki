@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import sys
-import gi
-
 from gi.repository import GObject as gobject, Gst as gst, Gtk as gtk, GdkX11, GstVideo 
 from livestreamer import Livestreamer, StreamError
+import platform
+
 
 class LivestreamerPlayer(object):
     def __init__(self, window):
@@ -18,8 +17,12 @@ class LivestreamerPlayer(object):
         self.pipeline.connect("source-setup", self.on_source_setup)
 
         # Sink
-        self.sink = gst.ElementFactory.make('xvimagesink','sink')
-        self.sink.set_property('force-aspect-ratio', True)
+        if platform.system() == "Windows":
+            self.sink = gst.ElementFactory.make('d3dvideosink', 'sink')
+        else:
+            self.sink = gst.ElementFactory.make('xvimagesink', 'sink')
+            self.sink.set_property('force-aspect-ratio', True)
+
         self.pipeline.set_property('video-sink', self.sink)
 
         # Creates a bus and set callbacks to receive errors
@@ -28,7 +31,11 @@ class LivestreamerPlayer(object):
         self.bus.connect("message::eos", self.on_eos)
         self.bus.connect("message::error", self.on_error)
 
-        self.sink.set_window_handle(self.window.get_xid())  
+        # Find the correct window handle and set it as base drawing area for the video sink
+        if platform.system() == "Windows":
+            self.sink.set_window_handle(self.window.get_hwnd())
+        else:
+            self.sink.set_window_handle(self.window.get_xid())
 
     def stop(self):
         # Stop playback and exit mainloop

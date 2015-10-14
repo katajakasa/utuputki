@@ -13,13 +13,11 @@ from query import req_video, req_skips, NetException
 from window import VideoWindow
 
 # Others
-import os
-import sys
 import gi
-import time
 import signal
 from livestreamer import Livestreamer, NoPluginError, PluginError
 from gi.repository import GObject as gobject, Gst as gst, GLib as glib
+
 
 # Do stuff.
 class Streamer(object):
@@ -37,6 +35,7 @@ class Streamer(object):
         self.current_stream = None
         self.session = Livestreamer()
         self.player = None
+        self.window = None
 
     def run(self):
         # Graphics stuff. Start last!

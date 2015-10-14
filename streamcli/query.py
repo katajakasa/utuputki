@@ -4,9 +4,11 @@ import config
 import json
 import httplib
 
+
 class NetException(Exception):
     """ Exception for interwebs errors """
     pass
+
 
 def get_json(path):
     """ Fetches JSON response from API """
@@ -23,9 +25,11 @@ def get_json(path):
     else:
         raise NetException('Unable to fetch data from server')
 
+
 def req_video():
     """ Fetches next video from API """
     return get_json(config.UTUPUTKI_API_PATH + '/next/')
+
 
 def req_skips(id):
     """ Fetches skipping information from API """
