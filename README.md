@@ -1,7 +1,7 @@
 Utuputki
 ========
 
-PLEASE NOTE! THIS PROJECT IS DEPRECATED! See (Utuputki2)[https://github.com/katajakasa/Utuputki2] for the new project!
+PLEASE NOTE! THIS PROJECT IS DEPRECATED! See [Utuputki2](https://github.com/katajakasa/Utuputki2) for the new project!
 
 What is this ?
 --------------
