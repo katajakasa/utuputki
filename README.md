@@ -1,6 +1,8 @@
 Utuputki
 ========
 
+PLEASE NOTE! THIS PROJECT IS DEPRECATED! See (Utuputki2)[https://github.com/katajakasa/Utuputki2] for the new project!
+
 What is this ?
 --------------
 Utuputki is a very simple django program for allowing people to pick youtube videos for playback on video screen at LAN parties.
